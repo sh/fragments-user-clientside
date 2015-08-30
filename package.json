@@ -31,6 +31,5 @@
     "hinoki": "1.0.0-rc.3"
   },
   "devDependencies": {},
-  "scripts": {},
-  "main": "lib/fragments-user"
+  "scripts": {}
 }

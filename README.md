@@ -12,14 +12,14 @@ cd {this-repository}
 npm install
 ```
 
-configure by changing [.env](.env) to suit your needs
+configure by changing [.env](.env) to suit your needs.
 
 ```
 source .env
 ```
-(or use [autoenv](https://github.com/kennethreitz/autoenv) *recommended*)
+(or use [autoenv](https://github.com/kennethreitz/autoenv) which is recommended)
 
-create database which was configured in [.env](.env):
+create database thats in env var `DATABASE_URL`:
 ```
 ./app pg:create
 ```
