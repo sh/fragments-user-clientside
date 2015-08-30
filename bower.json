@@ -1,0 +1,28 @@
+{
+  "name": "fragments-user-clientside",
+  "version": "1.0.0-alpha.1",
+  "homepage": "https://github.com/snd/fragments-user-clientside",
+  "authors": [
+    "Maximilian Krüger <kruemaxi@googlemail.com>"
+  ],
+  "description": "",
+  "keywords": [
+  ],
+  "moduleType": [
+    "amd",
+    "globals",
+    "node"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "hinoki": "1.0.0-rc.5",
+    "lodash": "3.10.1"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

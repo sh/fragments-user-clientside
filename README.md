@@ -2,7 +2,12 @@
 
 clientside experiments
 
-## instructions to getting it to run
+## instructions on getting it to run
+
+```
+npm install -g gulp-cli
+npm install -g bower
+```
 
 ```
 cd {this-repository}
@@ -34,3 +39,7 @@ start the server:
 ./app serve
 ```
 
+compile development javascript
+```
+gulp js-dev
+```
