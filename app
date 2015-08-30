@@ -4,13 +4,14 @@ var hinoki = require('hinoki');
 var fragments = require('fragments');
 var fragmentsPostgres = require('fragments-postgres');
 var fragmentsUser = require('fragments-user');
+var umgebung = require('umgebung');
 
 var source = hinoki.source([
   __dirname + '/src/server',
   fragmentsUser,
   fragmentsPostgres,
   fragments.source,
-  fragments.umgebung,
+  umgebung
 ]);
 
 source = hinoki.decorateSourceToAlsoLookupWithPrefix(source, 'fragments_');

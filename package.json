@@ -29,7 +29,8 @@
     "fragments": "1.0.0-beta.8",
     "fragments-postgres": "1.0.0-beta.8",
     "fragments-user": "1.0.0-alpha.11",
-    "hinoki": "1.0.0-rc.3"
+    "hinoki": "1.0.0-rc.3",
+    "umgebung": "0.1.0"
   },
   "devDependencies": {},
   "scripts": {}

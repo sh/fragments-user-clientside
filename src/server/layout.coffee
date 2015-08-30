@@ -1,8 +1,17 @@
 module.exports.singlePageAppLayout = (
   k
+  maybeEnvStringMinifiedJavascriptPath
+  javascripts
 ) ->
-  ->
+  (renderContent) ->
+    k.doctype()
     k.html ->
-      k.head()
-      k.body
-      k.h1 "hello world"
+      k.head ->
+        k.meta charset: "utf-8"
+        k.meta name: "viewport", content: "width=device-width, initial-scale=1"
+      k.body ->
+        renderContent?()
+        if maybeEnvStringMinifiedJavascriptPath?
+          k.script src: maybeEnvStringMinifiedJavascriptPath
+        else
+          javascripts.forEach (file) -> k.script src: "#{file}"
