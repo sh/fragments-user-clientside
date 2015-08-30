@@ -1,0 +1,36 @@
+{
+  "name": "fragments-user-clientside",
+  "version": "1.0.0-alpha.1",
+  "description": "clientside app for fragments user: hinoki + react + cursors",
+  "keywords": [],
+  "homepage": "http://github.com/snd/fragments-user-clientside",
+  "author": {
+    "name": "Maximilian Krüger",
+    "email": "kruemaxi@gmail.com",
+    "url": "http://github.com/snd"
+  },
+  "bugs": {
+    "url": "http://github.com/snd/fragments-user-clientside/issues",
+    "email": "kruemaxi@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/snd/fragments-user-clientside.git"
+  },
+  "licenses": {
+    "type": "MIT",
+    "url": "git://github.com/snd/fragments-user-clientside/LICENSE"
+  },
+  "engines": {
+    "node": ">=0.12.0"
+  },
+  "dependencies": {
+    "fragments": "1.0.0-beta.8",
+    "fragments-postgres": "1.0.0-beta.8",
+    "fragments-user": "1.0.0-alpha.11",
+    "hinoki": "1.0.0-rc.3"
+  },
+  "devDependencies": {},
+  "scripts": {},
+  "main": "lib/fragments-user"
+}
