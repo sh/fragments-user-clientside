@@ -6,6 +6,7 @@ var fragmentsPostgres = require('fragments-postgres');
 var fragmentsUser = require('fragments-user');
 
 var source = hinoki.source([
+  __dirname + '/src/server',
   fragmentsUser,
   fragmentsPostgres,
   fragments.source,
