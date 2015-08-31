@@ -28116,12 +28116,28 @@ module = {};
 
 module.exports = {};
 
-module.exports.ComponentApp = function(React, reactKup, Cursors) {
+module.exports.ComponentRoot = function(React, reactKup, Cursors, ComponentRouter) {
   return React.createClass({
     mixins: [Cursors],
+    getInitialState: function() {
+      return {
+        url: this.props.url || ''
+      };
+    },
     render: function() {
+      var that;
+      that = this;
       return reactKup(function(k) {
-        return k.div("hello from react");
+        return k.div({
+          className: 'ComponentRoot'
+        }, function() {
+          k.div("hello from ComponentRoot");
+          return k.build(ComponentRouter, {
+            cursors: {
+              url: that.getCursor('url')
+            }
+          });
+        });
       });
     }
   });
@@ -28139,7 +28155,11 @@ module.exports.ComponentLanding = function(React, reactKup, Cursors) {
     mixins: [Cursors],
     render: function() {
       return reactKup(function(k) {
-        return k.h1("Landing Page");
+        return k.div({
+          className: 'ComponentLanding'
+        }, function() {
+          return k.h1("Landing Page");
+        });
       });
     }
   });
@@ -28150,7 +28170,11 @@ module.exports.ComponentLogin = function(React, reactKup, Cursors) {
     mixins: [Cursors],
     render: function() {
       return reactKup(function(k) {
-        return k.h1("Login");
+        return k.div({
+          className: 'ComponentLogin'
+        }, function() {
+          return k.h1("hello from ComponentLogin");
+        });
       });
     }
   });
@@ -28160,23 +28184,30 @@ module.exports.ComponentRouter = function(React, reactKup, Cursors) {
   return React.createClass({
     mixins: [Cursors],
     render: function() {
-      var state;
-      state = this.state;
-      return reactKup(function(k) {});
+      var that;
+      that = this;
+      return reactKup(function(k) {
+        return k.div({
+          className: 'ComponentRouter'
+        }, function() {
+          k.h2("hello from ComponentRouter");
+          return k.pre(JSON.stringify(that.state));
+        });
+      });
     }
   });
 };
 
-module.exports.initClient = function(React, ComponentApp) {
+module.exports.initClient = function(React, ComponentRoot) {
   return function() {
-    var element, initialState, mountNode;
+    var initialState, rootElement, rootMountNode;
     console.log('initClient');
-    mountNode = document.getElementById("root");
+    rootMountNode = document.getElementById("root");
     initialState = {
-      url: 'foo'
+      url: '/foo'
     };
-    element = React.createElement(ComponentApp, initialState);
-    return React.render(element, mountNode);
+    rootElement = React.createElement(ComponentRoot, initialState);
+    return React.render(rootElement, rootMountNode);
   };
 };
 

@@ -1,11 +1,11 @@
 module.exports.initClient = (
   React
-  ComponentApp
+  ComponentRoot
 ) ->
   ->
     console.log 'initClient'
-    mountNode = document.getElementById "root"
+    rootMountNode = document.getElementById "root"
     initialState =
-      url: 'foo'
-    element = React.createElement ComponentApp, initialState
-    React.render element, mountNode
+      url: '/foo'
+    rootElement = React.createElement ComponentRoot, initialState
+    React.render rootElement, rootMountNode
