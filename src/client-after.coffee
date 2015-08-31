@@ -13,8 +13,6 @@ do ->
     module.exports
   ]
 
-  console.log 'Promise', Promise
-
   hinoki source, lifetime, (initClient) ->
     console.log 'successfully retrieved `initClient`. calling it now.'
     initClient()

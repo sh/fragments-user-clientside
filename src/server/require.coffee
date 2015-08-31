@@ -12,3 +12,12 @@ module.exports.gulpWatch = ->
 
 module.exports.streamqueue = ->
   require('streamqueue')
+
+module.exports.React = ->
+  require('react/addons')
+
+module.exports.reactKup = ->
+  require('react-kup')
+
+module.exports.Cursors = ->
+  require('cursors')

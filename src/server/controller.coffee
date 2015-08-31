@@ -4,7 +4,9 @@ module.exports.singlePageAppController = (
   GET '/', (
     endKup
     singlePageAppLayout
+    k
   ) ->
-    singlePageAppLayout()
+    singlePageAppLayout ->
+      k.div id: 'root'
     endKup()
 
