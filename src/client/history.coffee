@@ -3,9 +3,10 @@
 # returns a highland stream with all the clicked relative urls
 module.exports.streamAnchorClicks = (
   highland
+  getCurrentRoot
 ) ->
-  (el, history, root) ->
-    unless el? and history? and root?
+  (el) ->
+    unless el?
       throw new Error 'missing argument'
     stream = highland()
 
@@ -18,6 +19,8 @@ module.exports.streamAnchorClicks = (
 
       href = event.target.getAttribute('href')
       absoluteHref = event.target.href
+
+      root = getCurrentRoot()
 
       isRelative = absoluteHref.slice(0, root.length) is root
 
@@ -35,29 +38,20 @@ module.exports.streamAnchorClicks = (
 
     return stream
 
-module.exports.ComponentHistory = (
-  React
-  reactKup
-  Cursors
+module.exports.getCurrentRoot = (
+  window
 ) ->
-  React.createClass
-    mixins: [Cursors]
-    handleStatechange: (event) ->
-      # history = History.getState()
-      console.log 'ComponentHistory.handleStatechange',
-        event: event
-        href: location.href
-        history: history.state
-      # this.update
-      #   history: {$set: history}
-    componentDidMount: ->
-      console.log 'ComponentHistory.componentDidMount'
-        # history: location.href
-      window.addEventListener 'statechange', this.handleStatechange
-      # this.update
-      #   history: {$set: History.getState()}
-    componentWillUnmount: ->
-      window.removeEventListener 'statechange', this.handleStatechange
-    render: ->
-      reactKup (k) ->
-        k.div {className: 'ComponentHistory'}
+  ->
+    window.location.protocol + "//" + window.location.host
+
+module.exports.getCurrentPath = (
+  window
+) ->
+  ->
+    window.location.pathname
+
+module.exports.changeBrowserUrl = (
+  window
+) ->
+  (url) ->
+    window.history.pushState {}, null, url

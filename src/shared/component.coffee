@@ -2,8 +2,8 @@ module.exports.ComponentRoot = (
   React
   reactKup
   Cursors
-  ComponentHistory
   ComponentRouter
+  getCurrentPath
 ) ->
   React.createClass
     mixins: [Cursors]
@@ -13,21 +13,22 @@ module.exports.ComponentRoot = (
     # initial state.
     getInitialState: ->
       {
-        history: {}
+        url: getCurrentPath()
       }
+    componentDidMount: ->
+      that = this
+      console.log 'ComponentHistory.componentDidMount'
+      that.props.clickStream.each (data) ->
+        that.update {url: {$set: data.relative}}
     render: ->
       that = this
       reactKup (k) ->
         k.div {className: 'ComponentRoot'}, ->
           k.div "ComponentRoot"
-          # changes cursor on history
-          k.build ComponentHistory,
-            cursors:
-              history: that.getCursor('history')
           # dispatches on history
           k.build ComponentRouter,
             cursors:
-              history: that.getCursor('history')
+              url: that.getCursor('url')
 
 module.exports.ComponentLanding = (
   React

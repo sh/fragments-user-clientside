@@ -2,29 +2,29 @@ module.exports.initClient = (
   React
   ComponentRoot
   streamAnchorClicks
-  highland
+  window
+  changeBrowserUrl
 ) ->
   ->
     console.log 'initClient'
 
-    root = location.protocol + "//" + location.host
-    anchorClicksStream = streamAnchorClicks document, window.history, root
+    anchorClickStream = streamAnchorClicks document
 
-    changeBrowserUrl = (url) ->
-      history.pushState {}, null, url
+    # logging
 
-    urlStream = anchorClicksStream.fork().pluck('relative')
-
-    anchorClicksStream
+    anchorClickStream
       .fork()
-      .doto (x) -> console.log 'navigate', x
-      .each(->)
+      .each (x) -> console.log 'anchor click', x
 
-    urlStream
-      .doto(changeBrowserUrl)
-      # cause a thunk (the stream to actually be consumed)
-      .each(->)
+    # push state
+
+    anchorClickStream
+      .fork()
+      .pluck('relative')
+      .each(changeBrowserUrl)
 
     rootMountNode = document.getElementById "root"
-    rootElement = React.createElement ComponentRoot
+    rootElement = React.createElement ComponentRoot,
+      clickStream: anchorClickStream.fork()
+
     React.render rootElement, rootMountNode
