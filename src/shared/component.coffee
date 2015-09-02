@@ -24,14 +24,14 @@ module.exports.ComponentRoot = (
       this.update {url: {$set: getCurrentPath()}}
     componentDidMount: ->
       that = this
-      console.log 'ComponentHistory.componentDidMount'
+      console.log 'ComponentHistory', 'componentDidMount'
       # update the url-cursor whenever an item is received from the clickStream
       that.props.clickStream.each (data) ->
         that.update {url: {$set: data.relative}}
       window.addEventListener 'popstate', this.handlePopstate
     componentWillUnmount: ->
       that = this
-      console.log 'ComponentHistory.componentDidMount'
+      console.log 'ComponentHistory', 'componentDidMount'
       window.removeEventListener 'popstate', this.handlePopstate
     render: ->
       that = this
@@ -119,6 +119,12 @@ module.exports.ComponentUsers = (
 ) ->
   React.createClass
     mixins: [Cursors]
+    componentDidMount: ->
+      console.log 'ComponentUsers', 'componentDidMount'
+      # TODO
+      # this is where we will fetch the users from the server
+      # and put them into the page state that has been passed to us
+      # from above
     render: ->
       reactKup (k) ->
         k.div {className: 'ComponentUsers'}, ->
@@ -137,6 +143,12 @@ module.exports.ComponentUser = (
 ) ->
   React.createClass
     mixins: [Cursors]
+    componentDidMount: ->
+      console.log 'ComponentUser', 'componentDidMount'
+      # TODO
+      # this is where we will fetch the user `this.props.id` from the server
+      # and put it into the page state that has been passed to us
+      # from above
     render: ->
       that = this
       reactKup (k) ->
