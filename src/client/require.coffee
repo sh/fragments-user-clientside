@@ -15,3 +15,6 @@ module.exports.Cursors = (window) ->
 
 module.exports.reqwest = (window) ->
   window.reqwest
+
+module.exports.highland = (window) ->
+  window.highland

@@ -2,6 +2,7 @@ module.exports.ComponentRoot = (
   React
   reactKup
   Cursors
+  ComponentHistory
   ComponentRouter
 ) ->
   React.createClass
@@ -12,26 +13,21 @@ module.exports.ComponentRoot = (
     # initial state.
     getInitialState: ->
       {
-        url: this.props.url || ''
+        history: {}
       }
     render: ->
       that = this
       reactKup (k) ->
         k.div {className: 'ComponentRoot'}, ->
-          k.div "hello from ComponentRoot"
+          k.div "ComponentRoot"
+          # changes cursor on history
+          k.build ComponentHistory,
+            cursors:
+              history: that.getCursor('history')
+          # dispatches on history
           k.build ComponentRouter,
             cursors:
-              url: that.getCursor('url')
-
-module.exports.ComponentHistory = (
-  React
-  reactKup
-  Cursors
-) ->
-  React.createClass
-    mixins: [Cursors]
-    render: ->
-      # TODO make this modify the url in the cursor
+              history: that.getCursor('history')
 
 module.exports.ComponentLanding = (
   React
@@ -43,7 +39,7 @@ module.exports.ComponentLanding = (
     render: ->
       reactKup (k) ->
         k.div {className: 'ComponentLanding'}, ->
-          k.h1 "Landing Page"
+          k.h1 "ComponentLanding"
 
 module.exports.ComponentLogin = (
   React
@@ -55,25 +51,4 @@ module.exports.ComponentLogin = (
     render: ->
       reactKup (k) ->
         k.div {className: 'ComponentLogin'}, ->
-          k.h1 "hello from ComponentLogin"
-
-module.exports.ComponentRouter = (
-  React
-  reactKup
-  Cursors
-) ->
-  React.createClass
-    mixins: [Cursors]
-
-    render: ->
-      that = this
-
-      reactKup (k) ->
-        k.div {className: 'ComponentRouter'}, ->
-          k.h2 "hello from ComponentRouter"
-          k.pre JSON.stringify(that.state)
-#
-#         if url .match(url)
-#           return
-#
-#         if url .match(url)
+          k.h1 "ComponentLogin"
