@@ -28,7 +28,10 @@ module.exports.streamAnchorClicks = (
 
       event.preventDefault()
 
-      stream.write relative
+      stream.write
+        event: event
+        absolute: absoluteHref
+        relative: relative
 
     return stream
 

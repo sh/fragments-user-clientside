@@ -13,8 +13,14 @@ module.exports.initClient = (
     changeBrowserUrl = (url) ->
       history.pushState {}, null, url
 
+    urlStream = anchorClicksStream.fork().pluck('relative')
+
     anchorClicksStream
-      .doto(highland.log)
+      .fork()
+      .doto (x) -> console.log 'navigate', x
+      .each(->)
+
+    urlStream
       .doto(changeBrowserUrl)
       # cause a thunk (the stream to actually be consumed)
       .each(->)
