@@ -50,10 +50,11 @@ module.exports.ComponentRouter = (
   makeRouter
   ComponentLanding
   ComponentLogin
+  ComponentUsers
+  ComponentUser
 ) ->
   React.createClass
     mixins: [Cursors]
-
     render: ->
       that = this
 
@@ -62,23 +63,18 @@ module.exports.ComponentRouter = (
           k.h2 "ComponentRouter"
           k.h3 "ComponentRouter state:"
           k.pre JSON.stringify(that.state)
-          k.ul ->
-            k.li -> k.a {href: 'http://www.google.com'}, 'http://www.google.com'
-            k.li -> k.a {href: 'http://localhost:8080'}, 'http://localhost:8080'
-            k.li -> k.a {href: '/'}, '/'
-            k.li -> k.a {href: '/foo'}, '/foo'
-            k.li -> k.a {href: '/bar'}, '/bar'
-            k.li -> k.a {href: '/baz'}, '/baz'
-            k.li -> k.a {href: 'foo'}, 'foo'
-            k.li -> k.a {href: '/login'}, '/login'
 
           route = makeRouter()
           route '/', ->
             k.build ComponentLanding
           route '/login', ->
             k.build ComponentLogin
-          route '/bar', ->
-          route '/baz', ->
+          route '/users', ->
+            k.build ComponentUsers
+          route '/users/:id', (params) ->
+            k.build ComponentUser,
+              id: params.id
+
           route.dispatch that.state.url
 
 module.exports.ComponentLanding = (
@@ -92,6 +88,16 @@ module.exports.ComponentLanding = (
       reactKup (k) ->
         k.div {className: 'ComponentLanding'}, ->
           k.h1 "ComponentLanding"
+          k.ul ->
+            k.li -> k.a {href: 'http://www.google.com'}, 'http://www.google.com'
+            k.li -> k.a {href: 'http://localhost:8080'}, 'http://localhost:8080'
+            k.li -> k.a {href: '/'}, '/'
+            k.li -> k.a {href: '/login'}, '/login'
+            k.li -> k.a {href: '/users'}, '/users'
+            k.li -> k.a {href: '/foo'}, '/foo'
+            k.li -> k.a {href: '/bar'}, '/bar'
+            k.li -> k.a {href: '/baz'}, '/baz'
+            k.li -> k.a {href: 'foo'}, 'foo'
 
 module.exports.ComponentLogin = (
   React
@@ -104,3 +110,37 @@ module.exports.ComponentLogin = (
       reactKup (k) ->
         k.div {className: 'ComponentLogin'}, ->
           k.h1 "ComponentLogin"
+          k.a {href: '/'}, 'go to landing'
+
+module.exports.ComponentUsers = (
+  React
+  reactKup
+  Cursors
+) ->
+  React.createClass
+    mixins: [Cursors]
+    render: ->
+      reactKup (k) ->
+        k.div {className: 'ComponentUsers'}, ->
+          k.h1 "ComponentUsers"
+          k.a {href: '/'}, 'go to landing'
+          k.h2 "Users"
+          k.ul ->
+            k.li -> k.a {href: '/users/1'}, 'Alice'
+            k.li -> k.a {href: '/users/2'}, 'Bob'
+            k.li -> k.a {href: '/users/3'}, 'Charlie'
+
+module.exports.ComponentUser = (
+  React
+  reactKup
+  Cursors
+) ->
+  React.createClass
+    mixins: [Cursors]
+    render: ->
+      that = this
+      reactKup (k) ->
+        k.div {className: 'ComponentUser'}, ->
+          k.h1 "ComponentUser #{that.props.id}"
+          k.a {href: '/users'}, 'go to users'
+          k.a {href: '/'}, 'go to landing'
