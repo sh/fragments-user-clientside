@@ -18,3 +18,6 @@ module.exports.reqwest = (window) ->
 
 module.exports.highland = (window) ->
   window.highland
+
+module.exports.UrlPattern = (window) ->
+  window.UrlPattern

@@ -6,7 +6,7 @@ module.exports.makeRouter = (
     unless matcher is Object(matcher) and matcher.match?
       matcher = new UrlPattern matcher
     @matcher = matcher
-    @cb = @cb
+    @cb = cb
     return
 
   Router = ->
@@ -21,51 +21,14 @@ module.exports.makeRouter = (
     length = @routes.length
     while ++i < length
       route = @routes[i]
-      result = route.matcher url
+      result = route.matcher.match url
       if result?
         return route.cb result
 
   ->
     router = new Router
-    routeConvenienveFn = (matcher, cb) ->
+    addRoute = (matcher, cb) ->
       router.add matcher, cb
-    routeConvenienveFn.dispatch = (url) ->
+    addRoute.dispatch = (url) ->
       router.dispatch url
-    return routeConvenienceFn
-
-# module.exports.ClientRouter
-# TODO only instantiate router once
-
-module.exports.ComponentRouter = (
-  React
-  reactKup
-  Cursors
-  makeRouter
-) ->
-  React.createClass
-    mixins: [Cursors]
-
-    render: ->
-      that = this
-
-      reactKup (k) ->
-        k.div {className: 'ComponentRouter'}, ->
-          k.h2 "ComponentRouter"
-          k.h3 "ComponentRouter state:"
-          k.pre JSON.stringify(that.state)
-          k.ul ->
-            k.li -> k.a {href: 'http://www.google.com'}, 'http://www.google.com'
-            k.li -> k.a {href: 'http://localhost:8080'}, 'http://localhost:8080'
-            k.li -> k.a {href: '/'}, '/'
-            k.li -> k.a {href: '/foo'}, '/foo'
-            k.li -> k.a {href: '/bar'}, '/bar'
-            k.li -> k.a {href: '/baz'}, '/baz'
-            k.li -> k.a {href: 'foo'}, 'foo'
-            k.li -> k.a {href: 'bar'}, 'bar'
-            k.li -> k.a {href: 'baz'}, 'baz'
-
-            # route = makeRouter()
-            # route '/foo', ->
-            # route '/bar', ->
-            # route '/baz', ->
-            # route.dispatch url
+    return addRoute

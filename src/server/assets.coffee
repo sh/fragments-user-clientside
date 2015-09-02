@@ -8,6 +8,7 @@ module.exports.javascripts = ->
     'bower_components/react/react-with-addons.js'
     'bower_components/cursors/cursors.js'
     'bower_components/react-kup/lib/react-kup.js'
+    'bower_components/url-pattern/lib/url-pattern.js'
     'bower_components/reqwest/reqwest.js'
     'bower_components/highland/dist/highland.js'
   ]
