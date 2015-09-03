@@ -29,7 +29,7 @@ gone through several iterations. it's still in flux but its getting there.
   from [src/client](src/client),
   and finally from [src/client-last.coffee](src/client-last.coffee)
 - [src/client](src/client) - client only hinoki factories
-  - [src/client/init.coffee](src/client/init.coffee) - CLIENTSIDE ENTRY POINT
+  - [src/client/init.coffee](src/client/init.coffee) - **CLIENTSIDE ENTRY POINT**
   - [src/client/history.coffee](src/client/history.coffee) - utilities for dealing with the current-url-cursor-sync
 - [src/client-first.coffee](src/client-first.coffee) - first part of the concatenated `static/app.js`. mocks `module.exports` such that factory files can just be concatenated after it.
 - [src/client-last.coffee](src/client-last.coffee) - last part of the concatenated `static/app.js`. starts dependency injection with the factories in `module.exports` and calls dependency `initClient`.
@@ -37,7 +37,7 @@ gone through several iterations. it's still in flux but its getting there.
   - [src/shared/component.coffee](src/shared/component.coffee) - react components
   - [src/shared/router.coffee](src/shared/router.coffee) - a very simple router that uses [url-pattern](https://github.com/snd/url-pattern). for clientside use mostly.
 - [src/server](src/server) - server only hinoki factories
-  - [src/server/server.coffee](src/server/server.coffee) - SERVERSIDE ENTRY POINT
+  - [src/server/server.coffee](src/server/server.coffee) - **SERVERSIDE ENTRY POINT**
 - [app](app) - executable command line runner for [fragments](https://github.com/snd/fragments) app. sources [src/server](src/server) and [src/shared](src/shared)
 - [bower.json](bower.json) - bower dependencies. only files in
   [src/server/assets.coffee](src/server/assets.coffee) are picked.
