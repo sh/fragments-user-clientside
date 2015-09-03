@@ -4,6 +4,7 @@
   "description": "clientside app for fragments user = hinoki + react + cursors",
   "keywords": [],
   "homepage": "http://github.com/snd/fragments-user-clientside",
+  "private": true,
   "author": {
     "name": "Maximilian Krüger",
     "email": "kruemaxi@gmail.com",
