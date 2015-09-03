@@ -47,10 +47,10 @@ gulp.task 'js-dev', ->
     path
   ) ->
     libs = gulp.src(javascripts)
-    before = gulp.src('src/client-before.coffee').pipe(gulpCoffee({bare: true}))
+    before = gulp.src('src/client-first.coffee').pipe(gulpCoffee({bare: true}))
     shared = gulp.src('src/shared/*.coffee').pipe(gulpCoffee({bare: true}))
     client = gulp.src('src/client/*.coffee').pipe(gulpCoffee({bare: true}))
-    after = gulp.src('src/client-after.coffee').pipe(gulpCoffee({bare: true}))
+    after = gulp.src('src/client-last.coffee').pipe(gulpCoffee({bare: true}))
 
 #     if isForProduction
 #       libs = libs.pipe(uglify())
