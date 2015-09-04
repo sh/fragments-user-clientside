@@ -41,6 +41,16 @@ gone through several iterations. it's still in flux but its getting there.
 - [app](app) - executable command line runner for [fragments](https://github.com/snd/fragments) app. sources [src/server](src/server) and [src/shared](src/shared)
 - [bower.json](bower.json) - bower dependencies. only files in
   [src/server/assets.coffee](src/server/assets.coffee) are picked.
+- [sass](sass) - sass that is compiled into `static/public.css`
+- [sass/public.sass](sass/public.sass) - **SASS ENTRY POINT**
+
+## conventions
+
+- each react component name is camelcased and starts with `Component`
+- CSS/SASS
+  - each react components outermost tag/element has a class with the component name for easy and consistent component styling
+  - style components using mixins
+  - use sass to extend bootstrap styles in [sass/public.sass](sass/public.sass)
 
 ## instructions on getting it to run
 
