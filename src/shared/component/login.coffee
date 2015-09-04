@@ -6,7 +6,13 @@ module.exports.ComponentLogin = (
 ) ->
   React.createClass
     mixins: [Cursors]
+    handleChange: (event) ->
+      console.log 'ComponentLogin', 'handleChange', event
+    handleClick: (event) ->
+      event.preventDefault()
+      console.log 'ComponentLogin', 'handleClick', event
     render: ->
+      that = this
       reactKup (k) ->
         k.div {className: 'ComponentLogin'}, ->
           k.build ComponentNavigation
@@ -16,12 +22,15 @@ module.exports.ComponentLogin = (
                 k.h1 'Login'
                 k.form ->
                   k.div {className: 'form-group'}, ->
-                    k.label {htmlFor: 'inputEmail'}, 'Email or username'
+                    k.label {htmlFor: 'inputIdentifier'}, 'Email or username'
                     k.input {
-                      type: 'email',
+                      type: 'text',
                       className: 'form-control'
-                      id: 'inputEmail'
+                      id: 'inputIdentifier'
                       placeholder: 'Email or username'
+                      name: 'identifier'
+                      value: that.state.identifier
+                      onChange: that.handleChange
                     }
                   k.div {className: 'form-group'}, ->
                     k.label {htmlFor: 'inputPassword'}, 'Password'
@@ -30,8 +39,12 @@ module.exports.ComponentLogin = (
                       className: 'form-control'
                       id: 'inputPassword'
                       placeholder: 'Password'
+                      name: 'password'
+                      value: that.state.password
+                      onChange: that.handleChange
                     }
                   k.button {
                     type: 'submit'
                     className: 'btn btn-default'
+                    onClick: that.handleClick
                   }, 'Login'
