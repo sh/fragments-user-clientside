@@ -1,19 +1,18 @@
 module.exports.singlePageAppController = (
   GET
+  sequenz
+  clientsideUrls
 ) ->
-  # TODO support all clientside routes here
-  # share clientside routes with server
-  # ONE single array of clientside routes
-  # loop over them and serve singlePageApp
-  # combine with sequenz
-  # TODO support GET pattern, nameOfFragment
-  GET '/', (
-    endKup
-    singlePageAppLayout
-    k
-  ) ->
-    singlePageAppLayout ->
-      # this is where the react ComponentRoot will be mounted later
-      k.div id: 'root'
-    endKup()
+  sequenz clientsideUrls.map (url) ->
+    GET url, (
+      endKup
+      singlePageAppLayout
+      k
+    ) ->
+      # TODO support GET pattern, nameOfFragment
+      # in order to be able to extract this function into its own factory
+      singlePageAppLayout ->
+        # this is where the react ComponentRoot will be mounted later
+        k.div id: 'root'
+      endKup()
 
