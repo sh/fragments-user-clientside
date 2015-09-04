@@ -99,6 +99,16 @@ start the server:
 ./app serve
 ```
 
+insert a user so you can actually login and use the clientside app:
+```
+./app users:insert max max@example.com opensesame
+```
+
+add some fake users to play around with:
+```
+./app fake:users 100
+```
+
 visit `localhost:{the-port-you-put-into-.env}`
 
 ## [license: MIT](LICENSE)
