@@ -8,6 +8,7 @@ var umgebung = require('umgebung');
 
 var source = hinoki.source([
   __dirname + '/src/server',
+  __dirname + '/src/shared',
   fragmentsUser,
   fragmentsPostgres,
   fragments.source,
