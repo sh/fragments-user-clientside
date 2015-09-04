@@ -18,16 +18,16 @@ module.exports.ComponentRoot = (
     getInitialState: ->
       {
         # initialize url-cursor
-        url: getCurrentPath()
+        path: getCurrentPath()
       }
     handlePopstate: (event) ->
-      this.update {url: {$set: getCurrentPath()}}
+      this.update {path: {$set: getCurrentPath()}}
     componentDidMount: ->
       that = this
       console.log 'ComponentHistory', 'componentDidMount'
       # update the url-cursor whenever an item is received from the clickStream
       that.props.clickStream.each (data) ->
-        that.update {url: {$set: data.relative}}
+        that.update {path: {$set: data.relative}}
       window.addEventListener 'popstate', this.handlePopstate
     componentWillUnmount: ->
       that = this
@@ -35,9 +35,10 @@ module.exports.ComponentRoot = (
       window.removeEventListener 'popstate', this.handlePopstate
     render: ->
       that = this
+      console.log 'ComponentRoot', 'render', 'state', that.state
       reactKup (k) ->
         k.div {className: 'ComponentRoot'}, ->
           # router dispatches on url-cursor
           k.build ComponentRouter,
             cursors:
-              url: that.getCursor('url')
+              path: that.getCursor('path')

@@ -33,4 +33,4 @@ module.exports.ComponentRouter = (
             k.build ComponentUser,
               id: params.id
 
-          route.dispatch that.state.url
+          route.dispatch that.state.path
