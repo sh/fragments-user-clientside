@@ -16,8 +16,9 @@ as the base for future production client side applications.
 gone through several iterations. it's still in flux but its getting there.
 
 - isomorphic
-- clientside dependency injection structures clientside applications
-- easy sharing of dependencies between server and client
+- extremely DRY across client and server
+- clientside dependency injection gives just enough structure to clientside applications
+- effortless sharing of dependencies between server and client
 - super simple but powerful routing (let react and cursors do most of the work)
 - cursors
 - ...
@@ -87,7 +88,7 @@ migrate:
 ./app pg:migrate
 ```
 
-compile development javascript
+compile development javascript:
 ```
 gulp copy-fonts
 gulp dev-js
