@@ -6,18 +6,11 @@ module.exports.ComponentLogin = (
 ) ->
   React.createClass
     mixins: [Cursors]
-    # TODO maybe extract into helper function
-    # TODO make it easy to sync an entire form with the state
-    updateIdentifier: (event) ->
-      this.update
-        page:
-          identifier:
-            $set: event.target.value
-    updatePassword: (event) ->
-      this.update
-        page:
-          password:
-            $set: event.target.value
+    handleChange: (event) ->
+      command =
+        page: {}
+      command.page[event.target.name] = $set: event.target.value
+      this.update command
     handleClick: (event) ->
       event.preventDefault()
       console.log 'ComponentLogin', 'handleClick', event
@@ -40,7 +33,7 @@ module.exports.ComponentLogin = (
                       placeholder: 'Email or username'
                       name: 'identifier'
                       value: that.state.page.identifier
-                      onChange: that.updateIdentifier
+                      onChange: that.handleChange
                     }
                   k.div {className: 'form-group'}, ->
                     k.label {htmlFor: 'inputPassword'}, 'Password'
@@ -51,7 +44,7 @@ module.exports.ComponentLogin = (
                       placeholder: 'Password'
                       name: 'password'
                       value: that.state.page.password
-                      onChange: that.updatePassword
+                      onChange: that.handleChange
                     }
                   k.button {
                     type: 'submit'
