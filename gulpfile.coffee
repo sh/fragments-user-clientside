@@ -68,6 +68,7 @@ gulp.task 'dev-js', ->
       libs
       before
       shared
+      gulp.src('node_modules/fragments-user/src/factories/url.coffee').pipe(gulpCoffee({bare: true}))
       client
       after
     ]
