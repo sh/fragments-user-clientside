@@ -11,9 +11,11 @@ module.exports.ComponentLogin = (
         page: {}
       command.page[event.target.name] = $set: event.target.value
       this.update command
+      # TODO this is where we'd validate
     handleClick: (event) ->
       event.preventDefault()
-      console.log 'ComponentLogin', 'handleClick', event
+      console.log 'ComponentLogin', 'handleClick', this.state.page
+      # TODO this is where we'd send this.state.page to the server
     render: ->
       that = this
       reactKup (k) ->
