@@ -37,7 +37,6 @@ module.exports.ComponentRoot = (
       that = this
       reactKup (k) ->
         k.div {className: 'ComponentRoot'}, ->
-          k.div "ComponentRoot"
           # router dispatches on url-cursor
           k.build ComponentRouter,
             cursors:

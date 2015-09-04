@@ -15,9 +15,8 @@ module.exports.ComponentRouter = (
 
       reactKup (k) ->
         k.div {className: 'ComponentRouter'}, ->
-          k.h2 "ComponentRouter"
-          k.h3 "ComponentRouter state:"
-          k.pre JSON.stringify(that.state)
+          # k.h3 "ComponentRouter state:"
+          # k.pre JSON.stringify(that.state)
 
           route = makeRouter()
           route '/', ->
