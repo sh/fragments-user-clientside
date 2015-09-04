@@ -22,15 +22,25 @@ module.exports.ComponentRouter = (
           # k.h3 "ComponentRouter state:"
           # k.pre JSON.stringify(that.state)
 
+          pageCursor = that.getCursor('page')
+
           route = makeRouter()
           route urlRoot, ->
-            k.build ComponentLanding
+            k.build ComponentLanding,
+              cursors:
+                page: pageCursor
           route urlLogin, ->
-            k.build ComponentLogin
+            k.build ComponentLogin,
+              cursors:
+                page: pageCursor
           route urlUsers, ->
-            k.build ComponentUsers
+            k.build ComponentUsers,
+              cursors:
+                page: pageCursor
           route urlUser, (params) ->
             k.build ComponentUser,
               id: params.id
+              cursors:
+                page: pageCursor
 
           route.dispatch that.state.path

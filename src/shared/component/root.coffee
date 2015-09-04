@@ -17,8 +17,10 @@ module.exports.ComponentRoot = (
     # initial state.
     getInitialState: ->
       {
-        # initialize url-cursor
+        # initialize path-cursor
         path: getCurrentPath()
+        # this is where page components will put their state
+        page: {}
       }
     handlePopstate: (event) ->
       this.update {path: {$set: getCurrentPath()}}
@@ -35,10 +37,12 @@ module.exports.ComponentRoot = (
       window.removeEventListener 'popstate', this.handlePopstate
     render: ->
       that = this
-      console.log 'ComponentRoot', 'render', 'state', that.state
+      # this logs every state change
+      console.log that.state
       reactKup (k) ->
         k.div {className: 'ComponentRoot'}, ->
           # router dispatches on url-cursor
           k.build ComponentRouter,
             cursors:
               path: that.getCursor('path')
+              page: that.getCursor('page')

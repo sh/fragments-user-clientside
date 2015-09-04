@@ -12,9 +12,9 @@ module.exports.initClient = (
 
     # logging
 
-    anchorClickStream
-      .fork()
-      .each (x) -> console.log 'anchor click', x
+    # anchorClickStream
+    #   .fork()
+    #   .each (x) -> console.log 'anchor click', x
 
     # push state
 
