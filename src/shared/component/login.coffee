@@ -3,6 +3,7 @@ module.exports.ComponentLogin = (
   reactKup
   Cursors
   ComponentNavigation
+  login
 ) ->
   React.createClass
     mixins: [Cursors]
@@ -16,6 +17,11 @@ module.exports.ComponentLogin = (
       event.preventDefault()
       console.log 'ComponentLogin', 'handleClick', this.state.page
       # TODO this is where we'd send this.state.page to the server
+      login(this.state.page)
+        .then (response) ->
+          console.log 'success', response
+        .fail (error) ->
+          console.log 'error', error
     render: ->
       that = this
       reactKup (k) ->
