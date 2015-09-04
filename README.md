@@ -47,6 +47,7 @@ gone through several iterations. it's still in flux but its getting there.
 ```
 npm install -g gulp-cli
 npm install -g bower
+gem install sass
 ```
 
 ```
@@ -76,7 +77,9 @@ migrate:
 
 compile development javascript
 ```
-gulp js-dev
+gulp copy-fonts
+gulp dev-js
+gulp dev-css
 ```
 
 start the server:

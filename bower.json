@@ -14,7 +14,9 @@
   ],
   "license": "MIT",
   "dependencies": {
+    "bootstrap-sass": "3.3.5",
     "cursors": "0.6.1",
+    "font-awesome": "4.4.0",
     "highland": "2.5.1",
     "hinoki": "1.0.0-rc.5",
     "lodash": "3.10.1",

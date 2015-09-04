@@ -5,36 +5,37 @@ app = require('./app')
 ################################################################################
 # fonts
 
-# gulp.task 'copy-fonts', ->
-#   gulp.src('bower_components/fontawesome/fonts/*')
-#     .pipe(gulp.dest('static/fonts'))
-#   gulp.src('bower_components/bootstrap-sass-official/assets/fonts/bootstrap/*')
-#     .pipe(gulp.dest('static/fonts/bootstrap'))
+gulp.task 'copy-fonts', ->
+  gulp.src('bower_components/font-awesome/fonts/*')
+    .pipe(gulp.dest('static/fonts'))
+  gulp.src('bower_components/bootstrap-sass/assets/fonts/bootstrap/*')
+    .pipe(gulp.dest('static/fonts/bootstrap'))
 
 ################################################################################
 # css
 
-# gulp.task 'css-dev', ->
-#   APP (
-#     streamqueue
-#     gulpConcat
-#     gulpRubySass
-#   ) ->
-#     loadPaths = [
-#       'bower_components/bootstrap-sass/assets/stylesheets'
-#       'bower_components/fontawesome/scss'
-#     ]
-#     streamqueue({objectMode: true},
-#       gulpRubySass('sass/public.sass', {loadPath: loadPaths})
-#       gulp.src('bower_components/nprogress/nprogress.css')
-#     )
-#       .pipe(gulpConcat('public.css'))
-#       .pipe(gulp.dest('static-dev'))
+gulp.task 'dev-css', ->
+  app (
+    streamqueue
+    gulpConcat
+    gulpRubySass
+  ) ->
+    loadPaths = [
+      'bower_components/bootstrap-sass/assets/stylesheets'
+      'bower_components/font-awesome/scss'
+    ]
+    streamqueue({objectMode: true},
+      # custom sass
+      gulpRubySass('sass/public.sass', {loadPath: loadPaths})
+      # gulp.src('bower_components/nprogress/nprogress.css')
+    )
+      .pipe(gulpConcat('public.css'))
+      .pipe(gulp.dest('static'))
 
 ################################################################################
 # js
 
-gulp.task 'js-dev', ->
+gulp.task 'dev-js', ->
   app (
     gulpConcat
     gulpUglify
