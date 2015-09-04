@@ -7,6 +7,10 @@ module.exports.ComponentRouter = (
   ComponentLogin
   ComponentUsers
   ComponentUser
+  urlRoot
+  urlLogin
+  urlUsers
+  urlUser
 ) ->
   React.createClass
     mixins: [Cursors]
@@ -19,13 +23,13 @@ module.exports.ComponentRouter = (
           # k.pre JSON.stringify(that.state)
 
           route = makeRouter()
-          route '/', ->
+          route urlRoot, ->
             k.build ComponentLanding
-          route '/login', ->
+          route urlLogin, ->
             k.build ComponentLogin
-          route '/users', ->
+          route urlUsers, ->
             k.build ComponentUsers
-          route '/users/:id', (params) ->
+          route urlUser, (params) ->
             k.build ComponentUser,
               id: params.id
 
