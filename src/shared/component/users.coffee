@@ -2,6 +2,8 @@ module.exports.ComponentUsers = (
   React
   reactKup
   Cursors
+  ComponentNavigation
+  urlUser
 ) ->
   React.createClass
     mixins: [Cursors]
@@ -14,10 +16,10 @@ module.exports.ComponentUsers = (
     render: ->
       reactKup (k) ->
         k.div {className: 'ComponentUsers'}, ->
-          k.h1 "ComponentUsers"
-          k.a {href: '/'}, 'go to landing'
-          k.h2 "Users"
-          k.ul ->
-            k.li -> k.a {href: '/users/1'}, 'Alice'
-            k.li -> k.a {href: '/users/2'}, 'Bob'
-            k.li -> k.a {href: '/users/3'}, 'Charlie'
+          k.build ComponentNavigation
+          k.div {className: 'container'}, ->
+            k.h1 "Users"
+            k.ul ->
+              k.li -> k.a {href: urlUser.stringify(id: 1)}, 'Alice'
+              k.li -> k.a {href: urlUser.stringify(id: 2)}, 'Bob'
+              k.li -> k.a {href: urlUser.stringify(id: 3)}, 'Charlie'

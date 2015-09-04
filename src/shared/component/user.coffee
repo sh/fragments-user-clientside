@@ -2,6 +2,7 @@ module.exports.ComponentUser = (
   React
   reactKup
   Cursors
+  ComponentNavigation
 ) ->
   React.createClass
     mixins: [Cursors]
@@ -15,6 +16,6 @@ module.exports.ComponentUser = (
       that = this
       reactKup (k) ->
         k.div {className: 'ComponentUser'}, ->
-          k.h1 "ComponentUser #{that.props.id}"
-          k.a {href: '/users'}, 'go to users'
-          k.a {href: '/'}, 'go to landing'
+          k.build ComponentNavigation
+          k.div {className: 'container'}, ->
+            k.h1 "User ##{that.props.id}"
