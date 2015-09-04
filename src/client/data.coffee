@@ -4,7 +4,8 @@ module.exports.login = (
 ) ->
   (data) ->
     reqwest(
-      # TODO use url-pattern here
       url: urlApiLogin()
       method: 'post'
+      type: 'json'
+      data: data
     )
