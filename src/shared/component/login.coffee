@@ -4,26 +4,48 @@ module.exports.ComponentLogin = (
   Cursors
   ComponentNavigation
   login
+  validateLogin
+  getCursorStates
 ) ->
   React.createClass
     mixins: [Cursors]
     handleChange: (event) ->
-      command =
-        page: {}
-      command.page[event.target.name] = $set: event.target.value
+      command = {page: {data: {}}}
+      command.page.data[event.target.name] = $set: event.target.value
       this.update command
-      # TODO this is where we'd validate
     handleClick: (event) ->
       event.preventDefault()
       console.log 'ComponentLogin', 'handleClick', this.state.page
-      # TODO this is where we'd send this.state.page to the server
-      login(this.state.page)
+      login(this.state.page.data)
         .then (response) ->
           console.log 'success', response
         .fail (error) ->
           console.log 'error', error
+    componentWillMount: ->
+      console.log 'ComponentLogin', 'componentWillMount'
+      this.update {page: {$set: {data: 'foo'}}}
+    componentWillReceiveProps: (nextProps) ->
+      # after calling `this.update()` in `handlChange` there is no guarantee
+      # that `this.state` already reflects our changes.
+      # `this.update()` calls `this.setState().
+      # `this.setState()` does not immediately mutate `this.state` but
+      # creates a pending state transition.
+      # accessing `this.state` after calling this method can
+      # potentially return the existing value
+      # (https://facebook.github.io/react/docs/component-api.html).
+      # if you need to update state in response to a prop change,
+      # use `componentWillReceiveProps`
+      # (https://facebook.github.io/react/docs/component-specs.html).
+      # we need to update the state with validation results in response
+      # to prop changes.
+      # console.log 'ComponentLogin', 'componentWillReceiveProps'
+      # nextState = getCursorStates nextProps.cursors
+      # console.log 'nextState', nextState
+      # errors = validateLogin nextState.page.data
+      # this.update {page: {errors: {$set: errors}}}
     render: ->
       that = this
+      console.log 'ComponentLogin', 'render', 'this.state', this.state
       reactKup (k) ->
         k.div {className: 'ComponentLogin'}, ->
           k.build ComponentNavigation
@@ -40,7 +62,7 @@ module.exports.ComponentLogin = (
                       id: 'inputIdentifier'
                       placeholder: 'Email or username'
                       name: 'identifier'
-                      value: that.state.page.identifier
+                      value: that.state.page.data.identifier
                       onChange: that.handleChange
                     }
                   k.div {className: 'form-group'}, ->
@@ -51,7 +73,7 @@ module.exports.ComponentLogin = (
                       id: 'inputPassword'
                       placeholder: 'Password'
                       name: 'password'
-                      value: that.state.page.password
+                      value: that.state.page.data.password
                       onChange: that.handleChange
                     }
                   k.button {

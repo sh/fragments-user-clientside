@@ -38,7 +38,7 @@ module.exports.ComponentRoot = (
     render: ->
       that = this
       # this logs every state change
-      console.log that.state
+      console.log 'ComponentRoot', 'render', 'this.state', this.state
       reactKup (k) ->
         k.div {className: 'ComponentRoot'}, ->
           # router dispatches on url-cursor
