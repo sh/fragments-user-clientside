@@ -23,7 +23,7 @@ module.exports.ComponentLogin = (
           console.log 'error', error
     componentWillMount: ->
       console.log 'ComponentLogin', 'componentWillMount'
-      this.update {page: {$set: {data: 'foo'}}}
+      this.update {page: {data: {$set: {}}}}
     componentWillReceiveProps: (nextProps) ->
       # after calling `this.update()` in `handlChange` there is no guarantee
       # that `this.state` already reflects our changes.
@@ -38,16 +38,18 @@ module.exports.ComponentLogin = (
       # (https://facebook.github.io/react/docs/component-specs.html).
       # we need to update the state with validation results in response
       # to prop changes.
-      # console.log 'ComponentLogin', 'componentWillReceiveProps'
-      # nextState = getCursorStates nextProps.cursors
-      # console.log 'nextState', nextState
-      # errors = validateLogin nextState.page.data
-      # this.update {page: {errors: {$set: errors}}}
+      console.log 'ComponentLogin', 'componentWillReceiveProps'
+      nextState = getCursorStates nextProps.cursors
+      console.log 'nextState', nextState
+      errors = validateLogin nextState.page.data
+      this.update {page: {errors: {$set: errors}}}
     render: ->
       that = this
       console.log 'ComponentLogin', 'render', 'this.state', this.state
       reactKup (k) ->
         k.div {className: 'ComponentLogin'}, ->
+          unless that.state.page.data?
+            return
           k.build ComponentNavigation
           k.div {className: 'container'}, ->
             k.div {className: 'row'}, ->
