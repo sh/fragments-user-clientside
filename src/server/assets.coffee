@@ -10,4 +10,6 @@ module.exports.javascripts = ->
     'bower_components/url-pattern/lib/url-pattern.js'
     'bower_components/reqwest/reqwest.js'
     'bower_components/highland/dist/highland.js'
+    'bower_components/is_js/is.js'
+    'node_modules/waechter/lib/waechter.js'
   ]

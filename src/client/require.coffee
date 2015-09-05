@@ -21,3 +21,6 @@ module.exports.highland = (window) ->
 
 module.exports.UrlPattern = (window) ->
   window.UrlPattern
+
+module.exports.waechter = (window) ->
+  window.waechter

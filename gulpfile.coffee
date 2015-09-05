@@ -69,6 +69,7 @@ gulp.task 'dev-js', ->
       before
       shared
       gulp.src('node_modules/fragments-user/src/factories/url.coffee').pipe(gulpCoffee({bare: true}))
+      gulp.src('node_modules/fragments-user/src/factories/validation.coffee').pipe(gulpCoffee({bare: true}))
       client
       after
     ]
