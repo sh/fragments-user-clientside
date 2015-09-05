@@ -82,18 +82,20 @@ module.exports.ComponentLogin = (
       this.state.page.errors?[name]
     getValue: (name) ->
       this.state.page.data?[name]
+    isReadyForRender: ->
+      this.state.page.data?
     render: ->
       that = this
       console.log 'ComponentLogin', 'render', 'this.state', this.state
-      page = that.state.page
       reactKup (k) ->
         k.div {className: 'ComponentLogin'}, ->
-          unless page.data?
+          unless that.isReadyForRender()
             return
           k.build ComponentNavigation
           k.div {className: 'container'}, ->
             k.div {className: 'row'}, ->
               k.div {className: 'col-md-4'}, ->
+
                 k.h1 'Login'
 
                 name = 'identifier'
@@ -113,7 +115,7 @@ module.exports.ComponentLogin = (
                       id: "input-#{name}"
                       placeholder: 'Email or username'
                       name: name
-                      value: page.data[name]
+                      value: that.getValue(name)
                       onChange: that.handleChange
                     }
                     if that.hasSuccess(name)
@@ -140,7 +142,7 @@ module.exports.ComponentLogin = (
                       id: "input-#{name}"
                       placeholder: 'Password'
                       name: name
-                      value: page.data[name]
+                      value: that.getValue(name)
                       onChange: that.handleChange
                     }
                     if that.hasSuccess(name)
