@@ -24,3 +24,6 @@ module.exports.UrlPattern = (window) ->
 
 module.exports.waechter = (window) ->
   window.waechter
+
+module.exports.classNames = (window) ->
+  window.classNames
