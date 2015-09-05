@@ -91,53 +91,57 @@ module.exports.ComponentLogin = (
             k.div {className: 'row'}, ->
               k.div {className: 'col-md-4'}, ->
                 k.h1 'Login'
+
+                name = 'identifier'
                 k.form ->
                   k.div {
                     className: classNames(
                       'form-group'
-                      {'has-success': that.hasSuccess('identifier')}
-                      {'has-error': that.hasError('identifier')}
-                      {'has-feedback': that.hasFeedback('identifier')}
+                      {'has-success': that.hasSuccess(name)}
+                      {'has-error': that.hasError(name)}
+                      {'has-feedback': that.hasFeedback(name)}
                     )
                   }, ->
-                    k.label {htmlFor: 'inputIdentifier'}, 'Email or username'
+                    k.label {htmlFor: "input-#{name}"}, 'Email or username'
                     k.input {
                       type: 'text',
                       className: 'form-control'
-                      id: 'inputIdentifier'
+                      id: "input-#{name}"
                       placeholder: 'Email or username'
-                      name: 'identifier'
-                      value: page.data.identifier
+                      name: name
+                      value: page.data[name]
                       onChange: that.handleChange
                     }
-                    if that.hasSuccess('identifier')
+                    if that.hasSuccess(name)
                       # TODO put this into its own component
                       k.span {className: 'glyphicon glyphicon-ok form-control-feedback'}
-                    if that.hasError('identifier')
+                    if that.hasError(name)
                       # TODO put this into its own component
                       k.span {className: 'glyphicon glyphicon-remove form-control-feedback'}
+
+                  name = 'password'
                   k.div {
                     className: classNames(
                       'form-group'
-                      {'has-success': that.hasSuccess('password')}
-                      {'has-error': that.hasError('password')}
-                      {'has-feedback': that.hasFeedback('password')}
+                      {'has-success': that.hasSuccess(name)}
+                      {'has-error': that.hasError(name)}
+                      {'has-feedback': that.hasFeedback(name)}
                     )
                   }, ->
-                    k.label {htmlFor: 'inputPassword'}, 'Password'
+                    k.label {htmlFor: "input-#{name}"}, 'Password'
                     k.input {
                       type: 'password',
                       className: 'form-control'
-                      id: 'inputPassword'
+                      id: "input-#{name}"
                       placeholder: 'Password'
-                      name: 'password'
-                      value: page.data.password
+                      name: name
+                      value: page.data[name]
                       onChange: that.handleChange
                     }
-                    if that.hasSuccess('password')
+                    if that.hasSuccess(name)
                       # TODO put this into its own component
                       k.span {className: 'glyphicon glyphicon-ok form-control-feedback'}
-                    if that.hasError('password')
+                    if that.hasError(name)
                       # TODO put this into its own component
                       k.span {className: 'glyphicon glyphicon-remove form-control-feedback'}
                   k.a {
