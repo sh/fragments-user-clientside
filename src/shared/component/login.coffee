@@ -78,6 +78,10 @@ module.exports.ComponentLogin = (
       this.state.page.errors?
     hasBeenClicked: ->
       this.state.page.hasBeenClicked is true
+    getError: (name) ->
+      this.state.page.errors?[name]
+    getValue: (name) ->
+      this.state.page.data?[name]
     render: ->
       that = this
       console.log 'ComponentLogin', 'render', 'this.state', this.state
@@ -118,6 +122,7 @@ module.exports.ComponentLogin = (
                     if that.hasError(name)
                       # TODO put this into its own component
                       k.span {className: 'glyphicon glyphicon-remove form-control-feedback'}
+                      k.span {className: 'help-block'}, that.getError(name)
 
                   name = 'password'
                   k.div {
@@ -144,6 +149,8 @@ module.exports.ComponentLogin = (
                     if that.hasError(name)
                       # TODO put this into its own component
                       k.span {className: 'glyphicon glyphicon-remove form-control-feedback'}
+                      k.span {className: 'help-block'}, that.getError(name)
+
                   k.a {
                     className: classNames(
                       'btn'
