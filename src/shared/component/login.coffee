@@ -5,6 +5,7 @@ module.exports.ComponentLogin = (
   ComponentNavigation
   login
   validateLogin
+  classNames
   # getCursorStates
 ) ->
   React.createClass
@@ -21,18 +22,31 @@ module.exports.ComponentLogin = (
       updated = React.addons.update this.state, command
       errors = validateLogin updated.page.data
       console.log 'errors', errors
-      this.update command
+      this.update
+        page:
+          data: {$merge: delta}
+          errors: {$set: errors}
+
     handleClick: (event) ->
       event.preventDefault()
+      that = this
       console.log 'ComponentLogin', 'handleClick', this.state.page
-      login(this.state.page.data)
+      if that.hasErrors()
+        this.update
+          page:
+            hasBeenClicked: {$set: true}
+        return
+      login(that.state.page.data)
         .then (response) ->
           console.log 'success', response
         .fail (error) ->
           console.log 'error', error
     componentWillMount: ->
       console.log 'ComponentLogin', 'componentWillMount'
-      this.update {page: {data: {$set: {}}}}
+      this.update
+        page:
+          data: {$set: {}}
+          errors: {$set: validateLogin {}}
     componentWillReceiveProps: (nextProps) ->
       # after calling `this.update()` in `handleChange` there is no guarantee
       # that `this.state` already reflects our changes.
@@ -54,12 +68,23 @@ module.exports.ComponentLogin = (
       # errors = validateLogin nextState.page.data
       # if errors
       # this.update {page: {errors: {$set: errors}}}
+    hasSuccess: (name) ->
+      this.state.page.data[name]? and not this.state.page.errors?[name]?
+    hasError: (name) ->
+      this.hasBeenClicked() and this.state.page.errors?[name]?
+    hasFeedback: (name) ->
+      this.hasSuccess(name) or this.hasError(name)
+    hasErrors: ->
+      this.state.page.errors?
+    hasBeenClicked: ->
+      this.state.page.hasBeenClicked is true
     render: ->
       that = this
       console.log 'ComponentLogin', 'render', 'this.state', this.state
+      page = that.state.page
       reactKup (k) ->
         k.div {className: 'ComponentLogin'}, ->
-          unless that.state.page.data?
+          unless page.data?
             return
           k.build ComponentNavigation
           k.div {className: 'container'}, ->
@@ -67,7 +92,14 @@ module.exports.ComponentLogin = (
               k.div {className: 'col-md-4'}, ->
                 k.h1 'Login'
                 k.form ->
-                  k.div {className: 'form-group'}, ->
+                  k.div {
+                    className: classNames(
+                      'form-group'
+                      {'has-success': that.hasSuccess('identifier')}
+                      {'has-error': that.hasError('identifier')}
+                      {'has-feedback': that.hasFeedback('identifier')}
+                    )
+                  }, ->
                     k.label {htmlFor: 'inputIdentifier'}, 'Email or username'
                     k.input {
                       type: 'text',
@@ -75,10 +107,23 @@ module.exports.ComponentLogin = (
                       id: 'inputIdentifier'
                       placeholder: 'Email or username'
                       name: 'identifier'
-                      value: that.state.page.data.identifier
+                      value: page.data.identifier
                       onChange: that.handleChange
                     }
-                  k.div {className: 'form-group'}, ->
+                    if that.hasSuccess('identifier')
+                      # TODO put this into its own component
+                      k.span {className: 'glyphicon glyphicon-ok form-control-feedback'}
+                    if that.hasError('identifier')
+                      # TODO put this into its own component
+                      k.span {className: 'glyphicon glyphicon-remove form-control-feedback'}
+                  k.div {
+                    className: classNames(
+                      'form-group'
+                      {'has-success': that.hasSuccess('password')}
+                      {'has-error': that.hasError('password')}
+                      {'has-feedback': that.hasFeedback('password')}
+                    )
+                  }, ->
                     k.label {htmlFor: 'inputPassword'}, 'Password'
                     k.input {
                       type: 'password',
@@ -86,11 +131,20 @@ module.exports.ComponentLogin = (
                       id: 'inputPassword'
                       placeholder: 'Password'
                       name: 'password'
-                      value: that.state.page.data.password
+                      value: page.data.password
                       onChange: that.handleChange
                     }
-                  k.button {
-                    type: 'submit'
-                    className: 'btn btn-default'
+                    if that.hasSuccess('password')
+                      # TODO put this into its own component
+                      k.span {className: 'glyphicon glyphicon-ok form-control-feedback'}
+                    if that.hasError('password')
+                      # TODO put this into its own component
+                      k.span {className: 'glyphicon glyphicon-remove form-control-feedback'}
+                  k.a {
+                    className: classNames(
+                      'btn'
+                      'btn-default'
+                      {disabled: that.hasBeenClicked() and that.hasErrors()}
+                    )
                     onClick: that.handleClick
                   }, 'Login'
