@@ -5,13 +5,22 @@ module.exports.ComponentLogin = (
   ComponentNavigation
   login
   validateLogin
-  getCursorStates
+  # getCursorStates
 ) ->
   React.createClass
     mixins: [Cursors]
     handleChange: (event) ->
-      command = {page: {data: {}}}
-      command.page.data[event.target.name] = $set: event.target.value
+      # TODO this does not create paths that dont yet exist
+      # this sucks
+      delta = {}
+      delta[event.target.name] = event.target.value
+      # TODO $merge is not a deep merge
+      # but a shallow one
+      command = {page: {data: {$merge: delta}}}
+      # here we simulate the state changes
+      updated = React.addons.update this.state, command
+      errors = validateLogin updated.page.data
+      console.log 'errors', errors
       this.update command
     handleClick: (event) ->
       event.preventDefault()
@@ -25,7 +34,7 @@ module.exports.ComponentLogin = (
       console.log 'ComponentLogin', 'componentWillMount'
       this.update {page: {data: {$set: {}}}}
     componentWillReceiveProps: (nextProps) ->
-      # after calling `this.update()` in `handlChange` there is no guarantee
+      # after calling `this.update()` in `handleChange` there is no guarantee
       # that `this.state` already reflects our changes.
       # `this.update()` calls `this.setState().
       # `this.setState()` does not immediately mutate `this.state` but
@@ -38,11 +47,13 @@ module.exports.ComponentLogin = (
       # (https://facebook.github.io/react/docs/component-specs.html).
       # we need to update the state with validation results in response
       # to prop changes.
-      console.log 'ComponentLogin', 'componentWillReceiveProps'
-      nextState = getCursorStates nextProps.cursors
-      console.log 'nextState', nextState
-      errors = validateLogin nextState.page.data
-      this.update {page: {errors: {$set: errors}}}
+      # console.log 'ComponentLogin', 'componentWillReceiveProps'
+      # nextState = getCursorStates nextProps.cursors
+      # console.log 'nextState', nextState
+      # we might check if they've actually differed
+      # errors = validateLogin nextState.page.data
+      # if errors
+      # this.update {page: {errors: {$set: errors}}}
     render: ->
       that = this
       console.log 'ComponentLogin', 'render', 'this.state', this.state
