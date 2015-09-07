@@ -15,7 +15,9 @@ module.exports.ComponentLoadCurrentUser = (
       that = this
       getCurrentUser()
         .then (data) ->
-          that.update {currentUser: {$set: data}}
+          that.update
+            currentUser: {$set: data}
+            checkingLoginStatus: {$set: false}
         .catch (error) ->
           that.update {error: {$set: error}}
     render: ->

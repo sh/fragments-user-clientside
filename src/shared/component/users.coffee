@@ -2,7 +2,6 @@ module.exports.ComponentUsers = (
   React
   reactKup
   Cursors
-  ComponentNavigation
   urlUser
 ) ->
   React.createClass
@@ -16,14 +15,9 @@ module.exports.ComponentUsers = (
     render: ->
       that = this
       reactKup (k) ->
-        k.div {className: 'ComponentUsers'}, ->
-          k.build ComponentNavigation,
-            cursors:
-              currentUser: that.getCursor('currentUser')
-              path: that.getCursor('path')
-          k.div {className: 'container'}, ->
-            k.h1 "Users"
-            k.ul ->
-              k.li -> k.a {href: urlUser.stringify(id: 1)}, 'Alice'
-              k.li -> k.a {href: urlUser.stringify(id: 2)}, 'Bob'
-              k.li -> k.a {href: urlUser.stringify(id: 3)}, 'Charlie'
+        k.div {className: 'container ComponentUsers'}, ->
+          k.h1 "Users"
+          k.ul ->
+            k.li -> k.a {href: urlUser.stringify(id: 1)}, 'Alice'
+            k.li -> k.a {href: urlUser.stringify(id: 2)}, 'Bob'
+            k.li -> k.a {href: urlUser.stringify(id: 3)}, 'Charlie'

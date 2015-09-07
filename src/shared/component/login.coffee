@@ -2,7 +2,6 @@ module.exports.ComponentLogin = (
   React
   reactKup
   Cursors
-  ComponentNavigation
   ComponentFeedbackSuccess
   ComponentFeedbackError
   login
@@ -89,82 +88,77 @@ module.exports.ComponentLogin = (
       that = this
       console.log 'ComponentLogin', 'render', 'this.state', this.state
       reactKup (k) ->
-        k.div {className: 'ComponentLogin'}, ->
-          k.build ComponentNavigation,
-            cursors:
-              currentUser: that.getCursor('currentUser')
-              path: that.getCursor('path')
-          k.div {className: 'container'}, ->
-            k.div {className: 'row'}, ->
-              k.div {className: 'col-md-4'}, ->
+        k.div {className: 'container ComponentLogin'}, ->
+          k.div {className: 'row'}, ->
+            k.div {className: 'col-md-4'}, ->
 
-                k.h1 'Login'
+              k.h1 'Login'
 
-                if that.state.page.alert?
-                  k.div {
-                    className: 'alert alert-danger'
-                  }, that.state.page.alert
+              if that.state.page.alert?
+                k.div {
+                  className: 'alert alert-danger'
+                }, that.state.page.alert
 
-                name = 'identifier'
-                k.form {
-                  onKeyPress: that.handleKeyPress
+              name = 'identifier'
+              k.form {
+                onKeyPress: that.handleKeyPress
+              }, ->
+                k.div {
+                  className: classNames(
+                    'form-group'
+                    {'has-success': that.hasSuccess(name)}
+                    {'has-error': that.hasError(name)}
+                    {'has-feedback': that.hasFeedback(name)}
+                  )
                 }, ->
-                  k.div {
-                    className: classNames(
-                      'form-group'
-                      {'has-success': that.hasSuccess(name)}
-                      {'has-error': that.hasError(name)}
-                      {'has-feedback': that.hasFeedback(name)}
-                    )
-                  }, ->
-                    k.label {htmlFor: "input-#{name}"}, 'Email or username'
-                    k.input {
-                      type: 'text',
-                      className: 'form-control'
-                      id: "input-#{name}"
-                      ref: name
-                      placeholder: 'Email or username'
-                      name: name
-                      value: that.getValue(name)
-                      onChange: that.updateCursorFromForm
-                    }
-                    if that.hasSuccess(name)
-                      k.build ComponentFeedbackSuccess
-                    if that.hasError(name)
-                      k.build ComponentFeedbackError
-                      k.span {className: 'help-block'}, that.getError(name)
+                  k.label {htmlFor: "input-#{name}"}, 'Email or username'
+                  k.input {
+                    type: 'text',
+                    className: 'form-control'
+                    id: "input-#{name}"
+                    ref: name
+                    placeholder: 'Email or username'
+                    name: name
+                    value: that.getValue(name)
+                    onChange: that.updateCursorFromForm
+                  }
+                  if that.hasSuccess(name)
+                    k.build ComponentFeedbackSuccess
+                  if that.hasError(name)
+                    k.build ComponentFeedbackError
+                    k.span {className: 'help-block'}, that.getError(name)
 
-                  name = 'password'
-                  k.div {
-                    className: classNames(
-                      'form-group'
-                      {'has-success': that.hasSuccess(name)}
-                      {'has-error': that.hasError(name)}
-                      {'has-feedback': that.hasFeedback(name)}
-                    )
-                  }, ->
-                    k.label {htmlFor: "input-#{name}"}, 'Password'
-                    k.input {
-                      type: 'password',
-                      className: 'form-control'
-                      id: "input-#{name}"
-                      ref: name
-                      placeholder: 'Password'
-                      name: name
-                      value: that.getValue(name)
-                      onChange: that.updateCursorFromForm
-                    }
-                    if that.hasSuccess(name)
-                      k.build ComponentFeedbackSuccess
-                    if that.hasError(name)
-                      k.build ComponentFeedbackError
-                      k.span {className: 'help-block'}, that.getError(name)
+                name = 'password'
+                k.div {
+                  className: classNames(
+                    'form-group'
+                    {'has-success': that.hasSuccess(name)}
+                    {'has-error': that.hasError(name)}
+                    {'has-feedback': that.hasFeedback(name)}
+                  )
+                }, ->
+                  k.label {htmlFor: "input-#{name}"}, 'Password'
+                  k.input {
+                    type: 'password',
+                    className: 'form-control'
+                    id: "input-#{name}"
+                    ref: name
+                    placeholder: 'Password'
+                    name: name
+                    value: that.getValue(name)
+                    onChange: that.updateCursorFromForm
+                  }
+                  if that.hasSuccess(name)
+                    k.build ComponentFeedbackSuccess
+                  if that.hasError(name)
+                    k.build ComponentFeedbackError
+                    k.span {className: 'help-block'}, that.getError(name)
 
-                  k.a {
-                    className: classNames(
-                      'btn'
-                      'btn-primary'
-                      {disabled: that.hasBeenClicked() and that.hasErrors()}
-                    )
-                    onClick: that.handleSubmit
-                  }, 'Login'
+                k.a {
+                  className: classNames(
+                    'btn'
+                    'btn-primary'
+                    {disabled: that.hasBeenClicked() and that.hasErrors()}
+                  )
+                  onClick: that.handleSubmit
+                }, 'Login'

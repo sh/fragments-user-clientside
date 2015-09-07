@@ -50,10 +50,11 @@ module.exports.ComponentNavigation = (
               # takes url cursor
               # ComponentNavigationLink
 
-              if that.state.currentUser?
+              if that.state.checkingLoginStatus
+                k.p {className: 'nav navbar-text navbar-right'}, "checking login status..."
+              else if that.state.currentUser?
                 k.ul {className: 'nav navbar-nav navbar-left'}, ->
                   k.li -> k.a {href: urlUsers.stringify()}, 'Users'
-              if that.state.currentUser?
                 k.ul {className: 'nav navbar-nav navbar-right'}, ->
                   k.li -> k.a {href: urlProfile.stringify()}, "Signed in as #{that.state.currentUser.name}"
                   k.li -> k.a {href: '', onClick: that.logout}, 'Logout'

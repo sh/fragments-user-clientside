@@ -22,6 +22,7 @@ module.exports.ComponentRoot = (
         path: getCurrentPath()
         # this is where page components will put their state
         page: {}
+        checkingLoginStatus: true
       }
     handlePopstate: (event) ->
       this.update {path: {$set: getCurrentPath()}}
@@ -47,10 +48,12 @@ module.exports.ComponentRoot = (
             cursors:
               path: that.getCursor('path')
               currentUser: that.getCursor('currentUser')
+              checkingLoginStatus: that.getCursor('checkingLoginStatus')
               page: that.getCursor('page')
               error: that.getCursor('error')
 
           k.build ComponentLoadCurrentUser,
             cursors:
               currentUser: that.getCursor('currentUser')
+              checkingLoginStatus: that.getCursor('checkingLoginStatus')
               error: that.getCursor('error')

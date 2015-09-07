@@ -8,6 +8,7 @@ module.exports.ComponentRouter = (
   ComponentUsers
   ComponentUser
   ComponentNotFound
+  ComponentNavigation
   urlRoot
   urlLogin
   urlUsers
@@ -22,6 +23,15 @@ module.exports.ComponentRouter = (
         k.div {className: 'ComponentRouter'}, ->
           # k.h3 "ComponentRouter state:"
           # k.pre JSON.stringify(that.state)
+
+          k.build ComponentNavigation,
+            cursors:
+              currentUser: that.getCursor('currentUser')
+              checkingLoginStatus: that.getCursor('checkingLoginStatus')
+
+          # wait with routing until we know whether we're logged in
+          if that.state.checkingLoginStatus
+            return
 
           cursors =
             page: that.getCursor('page')
