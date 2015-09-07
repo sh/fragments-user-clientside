@@ -27,16 +27,16 @@ module.exports.ComponentNavigation = (
   urlLogin
   urlProfile
   urlUsers
+  forgetToken
 ) ->
   React.createClass
     mixins: [Cursors]
     logout: (event) ->
       event.preventDefault()
-      # TODO also remove the cookie with the token
+      forgetToken()
       this.update
         path: {$set: '/login'}
         currentUser: {$set: null}
-        token: {$set: null}
     render: ->
       that = this
       reactKup (k) ->
