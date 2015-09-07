@@ -47,7 +47,7 @@ module.exports.ComponentLogin = (
       if that.hasErrors()
         this.update
           page:
-            hasBeenClicked: {$set: true}
+            hasClickedSubmit: {$set: true}
         return
       promise = login(that.state.page.data)
       promise
@@ -71,13 +71,13 @@ module.exports.ComponentLogin = (
     hasSuccess: (name) ->
       this.state.page.data?[name]? and not this.state.page.errors?[name]?
     hasError: (name) ->
-      this.hasBeenClicked() and this.state.page.errors?[name]?
+      this.hasClickedSubmit() and this.state.page.errors?[name]?
     hasFeedback: (name) ->
       this.hasSuccess(name) or this.hasError(name)
     hasErrors: ->
       this.state.page.errors?
-    hasBeenClicked: ->
-      this.state.page.hasBeenClicked is true
+    hasClickedSubmit: ->
+      this.state.page.hasClickedSubmit is true
     getError: (name) ->
       this.state.page.errors?[name]
     getValue: (name) ->
@@ -158,7 +158,7 @@ module.exports.ComponentLogin = (
                   className: classNames(
                     'btn'
                     'btn-primary'
-                    {disabled: that.hasBeenClicked() and that.hasErrors()}
+                    {disabled: that.hasClickedSubmit() and that.hasErrors()}
                   )
                   onClick: that.handleSubmit
                 }, 'Login'
