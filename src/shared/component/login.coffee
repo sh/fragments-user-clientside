@@ -9,6 +9,7 @@ module.exports.ComponentLogin = (
   validateLogin
   classNames
   urlUsers
+  rememberToken
 ) ->
   React.createClass
     mixins: [Cursors]
@@ -52,14 +53,14 @@ module.exports.ComponentLogin = (
       promise = login(that.state.page.data)
       promise
         .then (data) ->
+          rememberToken data.token
           that.update
             # navigate
             path: {$set: urlUsers.stringify()}
-            token: {$set: data.token}
             currentUser: {$set: data.user}
             page:
               alert: {$set: null}
-        .fail (error) ->
+        .catch (error) ->
           # TODO extract this
           if error.status is 422
             that.update {page: {alert: {$set: error.response}}}
@@ -92,7 +93,6 @@ module.exports.ComponentLogin = (
           k.build ComponentNavigation,
             cursors:
               currentUser: that.getCursor('currentUser')
-              token: that.getCursor('token')
               path: that.getCursor('path')
           k.div {className: 'container'}, ->
             k.div {className: 'row'}, ->
