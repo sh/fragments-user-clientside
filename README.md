@@ -52,6 +52,7 @@ gone through several iterations. it's still in flux but its getting there.
 ## conventions
 
 - each react component name is camelcased and starts with `Component`
+- each page component corresponds to one path (url pattern)
 - CSS/SASS
   - each react components outermost tag/element has a class with the component name for easy and consistent component styling
   - style components using mixins
