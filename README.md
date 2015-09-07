@@ -74,8 +74,20 @@ gone through several iterations. it's still in flux but its getting there.
 - `token` API access token (present if a user is logged in)
 - `page` **the single place** for the currently mounted page component to put its working state.
   it is a page components responsibility to clear this on mount.
+  [this subtree is documented per-component in detail here.](#page-state)
 - `error` if present a modal with this error message is overlaid.
   dismissing that modal clears this.
+
+## page state
+
+- `ComponentLogin`
+  - `data` form data
+    - `identifier`
+    - `password`
+  - `errors` errors for form data
+    - `identifier`
+    - `password`
+  - `alert` error message that, if present, is shown above the form
 
 ## instructions on getting it to run
 
