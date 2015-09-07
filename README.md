@@ -25,6 +25,8 @@ gone through several iterations. it's still in flux but its getting there.
 - cursors
 - ...
 
+![login](gif/login.gif)
+
 ## relevant files and folders
 
 - [gulpfile.coffee](gulpfile.coffee) - builds `static/app.js`
