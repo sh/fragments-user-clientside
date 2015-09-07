@@ -8,6 +8,7 @@ module.exports.ComponentRoot = (
   Cursors
   ComponentRouter
   getCurrentPath
+  ComponentLoadCurrentUser
 ) ->
   React.createClass
     mixins: [Cursors]
@@ -17,7 +18,7 @@ module.exports.ComponentRoot = (
     # initial state.
     getInitialState: ->
       {
-        # initialize path-cursor
+        # initialize `path` cursor
         path: getCurrentPath()
         # this is where page components will put their state
         page: {}
@@ -41,11 +42,15 @@ module.exports.ComponentRoot = (
       console.log 'ComponentRoot', 'render', 'this.state', this.state
       reactKup (k) ->
         k.div {className: 'ComponentRoot'}, ->
-          # router dispatches on url-cursor
+          # router dispatches on `path` cursor
           k.build ComponentRouter,
             cursors:
               path: that.getCursor('path')
               currentUser: that.getCursor('currentUser')
-              token: that.getCursor('token')
               page: that.getCursor('page')
+              error: that.getCursor('error')
+
+          k.build ComponentLoadCurrentUser,
+            cursors:
+              currentUser: that.getCursor('currentUser')
               error: that.getCursor('error')
