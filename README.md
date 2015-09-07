@@ -53,6 +53,10 @@ gone through several iterations. it's still in flux but its getting there.
 
 - each react component name is camelcased and starts with `Component`
 - each page component corresponds to one path (url pattern)
+- all component local state must be connected to the root cursor state
+  - the UI must be kept a pure function mapping state to DOM
+- be frugal with component helpers
+  - extract common patterns into functions and give them descriptive names
 - CSS/SASS
   - each react components outermost tag/element has a class with the component name for easy and consistent component styling
   - style components using mixins
