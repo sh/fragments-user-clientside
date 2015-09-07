@@ -46,3 +46,6 @@ module.exports.ComponentRoot = (
             cursors:
               path: that.getCursor('path')
               page: that.getCursor('page')
+              user: that.getCursor('user')
+              token: that.getCursor('token')
+              error: that.getCursor('error')
