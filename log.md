@@ -24,7 +24,7 @@ https://facebook.github.io/react/docs/component-specs.html#updating-componentwil
 unintuitiely you can't use `this.update()` within `componentWillReceiveProps`.
 doing this results in an infinite loop as `this.update()` starts rendering again
 at the component that has the root of the cursor tree.
-**this makes it difficult to update cursors every time cursors change.**
+**this makes it difficult to update cursors depending on changes to other cursors.**
 
 you can use `this.setState()` within `componentWillMount` with the following guarantee:
 > If you call setState within this method, render() will see the updated state and will be executed only once despite the state change.
