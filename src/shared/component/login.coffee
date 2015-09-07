@@ -44,11 +44,16 @@ module.exports.ComponentLogin = (
           page:
             hasBeenClicked: {$set: true}
         return
-      login(that.state.page.data)
+      promise = login(that.state.page.data)
+      promise
         .then (response) ->
           console.log 'success', response
         .fail (error) ->
-          console.log 'error', error
+          # TODO extract this
+          if error.status is 422
+            that.update {page: {alert: {$set: error.response}}}
+          else
+            that.update {error: {$set: error}}
     componentDidMount: ->
       this.updateCursorFromForm()
     hasSuccess: (name) ->
@@ -78,6 +83,11 @@ module.exports.ComponentLogin = (
               k.div {className: 'col-md-4'}, ->
 
                 k.h1 'Login'
+
+                if that.state.page.alert?
+                  k.div {
+                    className: 'alert alert-danger'
+                  }, that.state.page.alert
 
                 name = 'identifier'
                 k.form ->
