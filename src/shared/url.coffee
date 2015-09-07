@@ -8,6 +8,11 @@ module.exports.urlLogin = (
 ) ->
   new UrlPattern '/login'
 
+module.exports.urlProfile = (
+  UrlPattern
+) ->
+  new UrlPattern '/me'
+
 module.exports.urlUsers = (
   UrlPattern
 ) ->
@@ -21,12 +26,14 @@ module.exports.urlUser = (
 module.exports.clientsideUrls = (
   urlRoot
   urlLogin
+  urlProfile
   urlUsers
   urlUser
 ) ->
   [
     urlRoot
     urlLogin
+    urlProfile
     urlUsers
     urlUser
   ]

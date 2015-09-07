@@ -7,11 +7,14 @@ module.exports.ComponentLanding = (
   React.createClass
     mixins: [Cursors]
     render: ->
+      that = this
       reactKup (k) ->
         k.div {className: 'ComponentLanding'}, ->
           k.build ComponentNavigation,
             cursors:
-              that.getCursor('currentUser')
+              currentUser: that.getCursor('currentUser')
+              token: that.getCursor('token')
+              path: that.getCursor('path')
           k.div {className: 'container'}, ->
             k.h1 'Landing'
             k.ul ->

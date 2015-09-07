@@ -7,6 +7,7 @@ module.exports.ComponentRouter = (
   ComponentLogin
   ComponentUsers
   ComponentUser
+  ComponentNotFound
   urlRoot
   urlLogin
   urlUsers
@@ -35,12 +36,21 @@ module.exports.ComponentRouter = (
           route urlLogin, ->
             k.build ComponentLogin,
               cursors: cursors
-          route urlUsers, ->
-            k.build ComponentUsers,
-              cursors: cursors
-          route urlUser, (params) ->
-            k.build ComponentUser,
-              id: params.id
-              cursors: cursors
 
-          route.dispatch that.state.path
+          if that.state.currentUser?
+            route urlUsers, ->
+              k.build ComponentUsers,
+                cursors: cursors
+            route urlUser, (params) ->
+              k.build ComponentUser,
+                id: params.id
+                cursors: cursors
+
+          component = route.dispatch that.state.path
+
+          unless component?
+            k.build ComponentNotFound,
+              cursors:
+                currentUser: that.getCursor('currentUser')
+                token: that.getCursor('token')
+                path: that.getCursor('path')

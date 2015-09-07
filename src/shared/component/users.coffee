@@ -14,11 +14,14 @@ module.exports.ComponentUsers = (
       # and put them into the page state that has been passed to us
       # from above
     render: ->
+      that = this
       reactKup (k) ->
         k.div {className: 'ComponentUsers'}, ->
           k.build ComponentNavigation,
             cursors:
               currentUser: that.getCursor('currentUser')
+              token: that.getCursor('token')
+              path: that.getCursor('path')
           k.div {className: 'container'}, ->
             k.h1 "Users"
             k.ul ->

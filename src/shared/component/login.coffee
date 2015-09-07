@@ -92,6 +92,8 @@ module.exports.ComponentLogin = (
           k.build ComponentNavigation,
             cursors:
               currentUser: that.getCursor('currentUser')
+              token: that.getCursor('token')
+              path: that.getCursor('path')
           k.div {className: 'container'}, ->
             k.div {className: 'row'}, ->
               k.div {className: 'col-md-4'}, ->

@@ -25,10 +25,18 @@ module.exports.ComponentNavigation = (
   ComponentNavigationToggleButton
   urlRoot
   urlLogin
+  urlProfile
   urlUsers
 ) ->
   React.createClass
     mixins: [Cursors]
+    logout: (event) ->
+      event.preventDefault()
+      # TODO also remove the cookie with the token
+      this.update
+        path: {$set: '/login'}
+        currentUser: {$set: null}
+        token: {$set: null}
     render: ->
       that = this
       reactKup (k) ->
@@ -41,9 +49,14 @@ module.exports.ComponentNavigation = (
               # TODO add `active` class to active links via helper that
               # takes url cursor
               # ComponentNavigationLink
-              k.ul {className: 'nav navbar-nav'}, ->
-                k.li -> k.a {href: urlRoot.stringify()}, 'Home'
-                # TODO only display when logged out. otherwise display logout
-                k.li -> k.a {href: urlLogin.stringify()}, 'Login'
-                # TODO only display when logged in
-                k.li -> k.a {href: urlUsers.stringify()}, 'Users'
+
+              if that.state.currentUser?
+                k.ul {className: 'nav navbar-nav navbar-left'}, ->
+                  k.li -> k.a {href: urlUsers.stringify()}, 'Users'
+              if that.state.currentUser?
+                k.ul {className: 'nav navbar-nav navbar-right'}, ->
+                  k.li -> k.a {href: urlProfile.stringify()}, "Signed in as #{that.state.currentUser.name}"
+                  k.li -> k.a {href: '', onClick: that.logout}, 'Logout'
+              else
+                k.ul {className: 'nav navbar-nav navbar-right'}, ->
+                  k.li -> k.a {href: urlLogin.stringify()}, 'Login'
