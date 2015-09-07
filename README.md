@@ -145,6 +145,12 @@ insert a user so you can actually login and use the clientside app:
 ./app users:insert max max@example.com opensesame
 ```
 
+give the user some rights:
+```
+./app rights:insert 1 canGetUsers
+```
+`1` is the id of the user.
+
 add some fake users to play around with:
 ```
 ./app fake:users 100
