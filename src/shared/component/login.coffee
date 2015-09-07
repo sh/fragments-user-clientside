@@ -156,7 +156,7 @@ module.exports.ComponentLogin = (
                   k.a {
                     className: classNames(
                       'btn'
-                      'btn-default'
+                      'btn-primary'
                       {disabled: that.hasBeenClicked() and that.hasErrors()}
                     )
                     onClick: that.handleClick
