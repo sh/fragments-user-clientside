@@ -10,18 +10,28 @@ module.exports.ComponentLogin = (
 ) ->
   React.createClass
     mixins: [Cursors]
-    handleChange: (event) ->
-      delta = {}
-      delta[event.target.name] = event.target.value
-      command = {page: {data: {$merge: delta}}}
-      # here we simulate the state changes
-      updated = React.addons.update this.state, command
-      errors = validateLogin updated.page.data
-      console.log 'errors', errors
+    updateCursorFromForm: ->
+      data = this.getFormData()
+      errors = validateLogin data
       this.update
         page:
-          data: {$merge: delta}
+          data: {$set: data}
           errors: {$set: errors}
+
+    getFormData: ->
+      # TODO possibly auto detect this so we don't have to modify this
+      # when adding new form fields
+      # - just take all refs
+      # - take all refs with certain prefix `input`
+      inputRefNames = [
+        'identifier'
+        'password'
+      ]
+      refs = this.refs
+      data = {}
+      inputRefNames.forEach (name) ->
+        data[name] = refs[name].getDOMNode().value
+      return data
 
     handleClick: (event) ->
       event.preventDefault()
@@ -37,14 +47,10 @@ module.exports.ComponentLogin = (
           console.log 'success', response
         .fail (error) ->
           console.log 'error', error
-    componentWillMount: ->
-      console.log 'ComponentLogin', 'componentWillMount'
-      this.update
-        page:
-          data: {$set: {}}
-          errors: {$set: validateLogin {}}
+    componentDidMount: ->
+      this.updateCursorFromForm()
     hasSuccess: (name) ->
-      this.state.page.data[name]? and not this.state.page.errors?[name]?
+      this.state.page.data?[name]? and not this.state.page.errors?[name]?
     hasError: (name) ->
       this.hasBeenClicked() and this.state.page.errors?[name]?
     hasFeedback: (name) ->
@@ -64,8 +70,6 @@ module.exports.ComponentLogin = (
       console.log 'ComponentLogin', 'render', 'this.state', this.state
       reactKup (k) ->
         k.div {className: 'ComponentLogin'}, ->
-          unless that.isReadyForRender()
-            return
           k.build ComponentNavigation
           k.div {className: 'container'}, ->
             k.div {className: 'row'}, ->
@@ -88,10 +92,11 @@ module.exports.ComponentLogin = (
                       type: 'text',
                       className: 'form-control'
                       id: "input-#{name}"
+                      ref: name
                       placeholder: 'Email or username'
                       name: name
                       value: that.getValue(name)
-                      onChange: that.handleChange
+                      onChange: that.updateCursorFromForm
                     }
                     if that.hasSuccess(name)
                       # TODO put this into its own component
@@ -115,10 +120,11 @@ module.exports.ComponentLogin = (
                       type: 'password',
                       className: 'form-control'
                       id: "input-#{name}"
+                      ref: name
                       placeholder: 'Password'
                       name: name
                       value: that.getValue(name)
-                      onChange: that.handleChange
+                      onChange: that.updateCursorFromForm
                     }
                     if that.hasSuccess(name)
                       # TODO put this into its own component
