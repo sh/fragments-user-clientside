@@ -4,11 +4,18 @@ module.exports.initClient = (
   streamAnchorClicks
   window
   changeBrowserUrl
+  getCookieKeys
+  getRememberedToken
 ) ->
   ->
     console.log 'initClient'
 
+    console.log 'getCookieKeys()', getCookieKeys()
+    console.log 'getRememberedToken()', getRememberedToken()
+
     anchorClickStream = streamAnchorClicks document
+
+    # TODO break this up into multiple dependencies
 
     # logging
 
