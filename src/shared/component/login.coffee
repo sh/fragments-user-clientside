@@ -66,6 +66,7 @@ module.exports.ComponentLogin = (
           else
             that.update {error: {$set: error}}
     componentDidMount: ->
+      this.refs.identifier.getDOMNode().focus()
       this.updateCursorFromForm()
     hasSuccess: (name) ->
       this.state.page.data?[name]? and not this.state.page.errors?[name]?
