@@ -62,6 +62,21 @@ gone through several iterations. it's still in flux but its getting there.
   - style components using mixins
   - use sass to extend bootstrap styles in [sass/public.sass](sass/public.sass)
 
+## state tree and cursors
+
+- `path` the current path in the browser url bar (example: `/login`).
+  update to navigate.
+- `currentUser` the currently logged in user
+  - `id`
+  - `email`
+  - `name`
+  - `rights`
+- `token` API access token (present if a user is logged in)
+- `page` THE place for the currently mounted page component to put its working state.
+  it is a page components responsibility to clear this on mounit is a page components responsibility to clear this on mount.
+- `error` if present a modal with this error message is overlaid.
+  dismissing that modal clears this.
+
 ## instructions on getting it to run
 
 ```
