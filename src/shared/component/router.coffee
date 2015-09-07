@@ -26,7 +26,6 @@ module.exports.ComponentRouter = (
           cursors =
             page: that.getCursor('page')
             currentUser: that.getCursor('currentUser')
-            token: that.getCursor('token')
             error: that.getCursor('error')
 
           route = makeRouter()
@@ -52,5 +51,4 @@ module.exports.ComponentRouter = (
             k.build ComponentNotFound,
               cursors:
                 currentUser: that.getCursor('currentUser')
-                token: that.getCursor('token')
                 path: that.getCursor('path')

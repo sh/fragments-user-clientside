@@ -20,7 +20,6 @@ module.exports.ComponentUsers = (
           k.build ComponentNavigation,
             cursors:
               currentUser: that.getCursor('currentUser')
-              token: that.getCursor('token')
               path: that.getCursor('path')
           k.div {className: 'container'}, ->
             k.h1 "Users"
