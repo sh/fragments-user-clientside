@@ -27,3 +27,6 @@ module.exports.waechter = (window) ->
 
 module.exports.classNames = (window) ->
   window.classNames
+
+module.exports.Promise = (window) ->
+  window.Promise
