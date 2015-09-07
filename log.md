@@ -11,9 +11,7 @@
 
 https://facebook.github.io/react/docs/component-api.html#setstate
 
-### can't use [`this.update()`](https://github.com/caseywebdev/cursors#thisupdatedeltas)
-   like you'd use [`this.setState()`](https://facebook.github.io/react/docs/component-api.html#setstate)
-   (2015-09-07)
+### can't use [`this.update()`](https://github.com/caseywebdev/cursors#thisupdatedeltas) like you'd use [`this.setState()`](https://facebook.github.io/react/docs/component-api.html#setstate) (2015-09-07)
 
 `this.update()` calls `this.setState()` on the component that has the root of
 the cursor tree. it does not call `this.setState()` on the current component
