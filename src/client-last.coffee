@@ -8,6 +8,7 @@ do ->
 
   lifetime =
     window: window
+    document: document
 
   source = hinoki.source [
     module.exports
