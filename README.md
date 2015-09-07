@@ -51,6 +51,7 @@ gone through several iterations. it's still in flux but its getting there.
 
 ## conventions
 
+- pull in `window` and  `document` through the dependencies instead of relying on globals. the latter are difficult to test.
 - each react component name is camelcased and starts with `Component`
 - each page component corresponds to one path (url pattern)
 - all component local state must be connected to the root cursor state
@@ -61,17 +62,20 @@ gone through several iterations. it's still in flux but its getting there.
   - each react components outermost tag/element has a class with the component name for easy and consistent component styling
   - style components using mixins
   - use sass to extend bootstrap styles in [sass/public.sass](sass/public.sass)
+- we use cookies only for the storage of the token in the browser.
+  we ignore cookies on the server.
+- a component must take all data that its rendering depends on via cursors
+  from parent components.
 
 ## state tree and cursors
 
 - `path` the current path in the browser url bar (example: `/login`).
   update to navigate.
-- `currentUser` the currently logged in user
+- `currentUser` the currently logged in user. `null` if no user is logged in.
   - `id`
   - `email`
   - `name`
   - `rights`
-- `token` API access token (present if a user is logged in)
 - `page` **the single place** for the currently mounted page component to put its working state.
   it is a page components responsibility to clear this on mount.
   [this subtree is documented per-component in detail here.](#page-state)
