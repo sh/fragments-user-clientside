@@ -27,3 +27,19 @@ module.exports.getCurrentUser = (
       headers:
         authorization: "Bearer #{token}"
     ))
+
+module.exports.getUsers = (
+  reqwest
+  urlApiUsers
+  getRememberedToken
+  Promise
+) ->
+  (data) ->
+    token = getRememberedToken()
+    Promise.resolve(reqwest(
+      url: urlApiUsers()
+      method: 'get'
+      type: 'json'
+      headers:
+        authorization: "Bearer #{token}"
+    ))
