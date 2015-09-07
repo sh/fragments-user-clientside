@@ -3,6 +3,8 @@ module.exports.ComponentLogin = (
   reactKup
   Cursors
   ComponentNavigation
+  ComponentFeedbackSuccess
+  ComponentFeedbackError
   login
   validateLogin
   classNames
@@ -99,11 +101,9 @@ module.exports.ComponentLogin = (
                       onChange: that.updateCursorFromForm
                     }
                     if that.hasSuccess(name)
-                      # TODO put this into its own component
-                      k.span {className: 'glyphicon glyphicon-ok form-control-feedback'}
+                      k.build ComponentFeedbackSuccess
                     if that.hasError(name)
-                      # TODO put this into its own component
-                      k.span {className: 'glyphicon glyphicon-remove form-control-feedback'}
+                      k.build ComponentFeedbackError
                       k.span {className: 'help-block'}, that.getError(name)
 
                   name = 'password'
@@ -127,11 +127,9 @@ module.exports.ComponentLogin = (
                       onChange: that.updateCursorFromForm
                     }
                     if that.hasSuccess(name)
-                      # TODO put this into its own component
-                      k.span {className: 'glyphicon glyphicon-ok form-control-feedback'}
+                      k.build ComponentFeedbackSuccess
                     if that.hasError(name)
-                      # TODO put this into its own component
-                      k.span {className: 'glyphicon glyphicon-remove form-control-feedback'}
+                      k.build ComponentFeedbackError
                       k.span {className: 'help-block'}, that.getError(name)
 
                   k.a {
