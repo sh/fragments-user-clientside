@@ -2,6 +2,8 @@
 
 [ROADMAP](https://github.com/snd/fragments-user-clientside/issues/1)
 
+[a log of pitfalls, limitations and things to be aware off](log.md)
+
 **constructive feedback is very welcome : ) [don't hesitate to open an issue !](https://github.com/snd/fragments-user-clientside/issues/new)**
 
 a client side for [fragments-user](https://github.com/snd/fragments-user)
