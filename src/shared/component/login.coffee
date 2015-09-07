@@ -11,12 +11,8 @@ module.exports.ComponentLogin = (
   React.createClass
     mixins: [Cursors]
     handleChange: (event) ->
-      # TODO this does not create paths that dont yet exist
-      # this sucks
       delta = {}
       delta[event.target.name] = event.target.value
-      # TODO $merge is not a deep merge
-      # but a shallow one
       command = {page: {data: {$merge: delta}}}
       # here we simulate the state changes
       updated = React.addons.update this.state, command
@@ -47,27 +43,6 @@ module.exports.ComponentLogin = (
         page:
           data: {$set: {}}
           errors: {$set: validateLogin {}}
-    componentWillReceiveProps: (nextProps) ->
-      # after calling `this.update()` in `handleChange` there is no guarantee
-      # that `this.state` already reflects our changes.
-      # `this.update()` calls `this.setState().
-      # `this.setState()` does not immediately mutate `this.state` but
-      # creates a pending state transition.
-      # accessing `this.state` after calling this method can
-      # potentially return the existing value
-      # (https://facebook.github.io/react/docs/component-api.html).
-      # if you need to update state in response to a prop change,
-      # use `componentWillReceiveProps`
-      # (https://facebook.github.io/react/docs/component-specs.html).
-      # we need to update the state with validation results in response
-      # to prop changes.
-      # console.log 'ComponentLogin', 'componentWillReceiveProps'
-      # nextState = getCursorStates nextProps.cursors
-      # console.log 'nextState', nextState
-      # we might check if they've actually differed
-      # errors = validateLogin nextState.page.data
-      # if errors
-      # this.update {page: {errors: {$set: errors}}}
     hasSuccess: (name) ->
       this.state.page.data[name]? and not this.state.page.errors?[name]?
     hasError: (name) ->
