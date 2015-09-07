@@ -35,8 +35,13 @@ module.exports.ComponentLogin = (
         data[name] = refs[name].getDOMNode().value
       return data
 
-    handleClick: (event) ->
-      event.preventDefault()
+    handleKeyPress: (event) ->
+      enterCharCode = 13
+      if event.charCode is enterCharCode
+        this.handleSubmit()
+    handleSubmit: (event) ->
+      if event?
+        event.preventDefault()
       that = this
       console.log 'ComponentLogin', 'handleClick', this.state.page
       if that.hasErrors()
@@ -96,7 +101,9 @@ module.exports.ComponentLogin = (
                   }, that.state.page.alert
 
                 name = 'identifier'
-                k.form ->
+                k.form {
+                  onKeyPress: that.handleKeyPress
+                }, ->
                   k.div {
                     className: classNames(
                       'form-group'
@@ -154,5 +161,5 @@ module.exports.ComponentLogin = (
                       'btn-primary'
                       {disabled: that.hasBeenClicked() and that.hasErrors()}
                     )
-                    onClick: that.handleClick
+                    onClick: that.handleSubmit
                   }, 'Login'
