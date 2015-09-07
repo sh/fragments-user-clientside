@@ -8,7 +8,7 @@ module.exports.ComponentLogin = (
   login
   validateLogin
   classNames
-  # getCursorStates
+  urlUsers
 ) ->
   React.createClass
     mixins: [Cursors]
@@ -46,8 +46,14 @@ module.exports.ComponentLogin = (
         return
       promise = login(that.state.page.data)
       promise
-        .then (response) ->
-          console.log 'success', response
+        .then (data) ->
+          that.update
+            # navigate
+            path: {$set: urlUsers.stringify()}
+            token: {$set: data.token}
+            user: {$set: data.user}
+            page:
+              alert: {$set: null}
         .fail (error) ->
           # TODO extract this
           if error.status is 422
