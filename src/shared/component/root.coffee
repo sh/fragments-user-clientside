@@ -45,7 +45,7 @@ module.exports.ComponentRoot = (
           k.build ComponentRouter,
             cursors:
               path: that.getCursor('path')
-              page: that.getCursor('page')
-              user: that.getCursor('user')
+              currentUser: that.getCursor('currentUser')
               token: that.getCursor('token')
+              page: that.getCursor('page')
               error: that.getCursor('error')

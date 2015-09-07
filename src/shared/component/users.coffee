@@ -16,7 +16,9 @@ module.exports.ComponentUsers = (
     render: ->
       reactKup (k) ->
         k.div {className: 'ComponentUsers'}, ->
-          k.build ComponentNavigation
+          k.build ComponentNavigation,
+            cursors:
+              currentUser: that.getCursor('currentUser')
           k.div {className: 'container'}, ->
             k.h1 "Users"
             k.ul ->

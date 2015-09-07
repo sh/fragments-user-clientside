@@ -56,7 +56,7 @@ module.exports.ComponentLogin = (
             # navigate
             path: {$set: urlUsers.stringify()}
             token: {$set: data.token}
-            user: {$set: data.user}
+            currentUser: {$set: data.user}
             page:
               alert: {$set: null}
         .fail (error) ->
@@ -88,7 +88,9 @@ module.exports.ComponentLogin = (
       console.log 'ComponentLogin', 'render', 'this.state', this.state
       reactKup (k) ->
         k.div {className: 'ComponentLogin'}, ->
-          k.build ComponentNavigation
+          k.build ComponentNavigation,
+            cursors:
+              currentUser: that.getCursor('currentUser')
           k.div {className: 'container'}, ->
             k.div {className: 'row'}, ->
               k.div {className: 'col-md-4'}, ->

@@ -9,7 +9,9 @@ module.exports.ComponentLanding = (
     render: ->
       reactKup (k) ->
         k.div {className: 'ComponentLanding'}, ->
-          k.build ComponentNavigation
+          k.build ComponentNavigation,
+            cursors:
+              that.getCursor('currentUser')
           k.div {className: 'container'}, ->
             k.h1 'Landing'
             k.ul ->

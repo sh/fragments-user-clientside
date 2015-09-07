@@ -24,7 +24,7 @@ module.exports.ComponentRouter = (
 
           cursors =
             page: that.getCursor('page')
-            user: that.getCursor('user')
+            currentUser: that.getCursor('currentUser')
             token: that.getCursor('token')
             error: that.getCursor('error')
 

@@ -16,6 +16,8 @@ module.exports.ComponentUser = (
       that = this
       reactKup (k) ->
         k.div {className: 'ComponentUser'}, ->
-          k.build ComponentNavigation
+          k.build ComponentNavigation,
+            cursors:
+              currentUser: that.getCursor('currentUser')
           k.div {className: 'container'}, ->
             k.h1 "User ##{that.props.id}"
