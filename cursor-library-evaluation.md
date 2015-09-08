@@ -33,7 +33,7 @@ that data are not exported by the package.
 
 liked the way the mixin works:
 cursors are sent in as `cursors` props.
-on `componentWillReceiveProps` state is initialized from `this.props.cursors`.
+on `componentWillReceiveProps` `this.state` is initialized from `this.props.cursors`.
 
 didn't find an elegant way to initialize cursor state on component mount.
 [see log.md.](log.md)
