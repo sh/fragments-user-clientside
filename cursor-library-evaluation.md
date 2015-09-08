@@ -44,6 +44,7 @@ too limited.
 
 > A library providing an abstraction for React components that allows for fast top-down rendering embracing immutable data for js
 > Omniscient pairs the simplicity of Quiescent with the cursors of Om, for js, using Immutable.js.
+
 that sounds really great
 
 cursors
