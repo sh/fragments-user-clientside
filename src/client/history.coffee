@@ -14,6 +14,10 @@ module.exports.onRelativeAnchorClick = (
       if event.target.dataset.bypass?
         return
 
+      # don't break the users ability to open links in a new tab !
+      if event.ctrlKey or event.metaKey
+        return
+
       href = event.target.getAttribute('href')
       absoluteHref = event.target.href
 

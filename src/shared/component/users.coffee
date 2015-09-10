@@ -38,7 +38,11 @@ module.exports.ComponentUsers = (
                 users.forEach (user) ->
                   url = urlUser.stringify(id: user.id)
                   k.tr {
-                    onClick: -> redirect(url)
+                    onClick: (event) ->
+                      # don't annoy the user by redirecting even though user
+                      # has opened link in a new tab
+                      unless event.ctrlKey or event.metaKey
+                        redirect(url)
                     style:
                       cursor: 'pointer'
                   }, ->
