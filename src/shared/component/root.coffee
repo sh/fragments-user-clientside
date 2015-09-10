@@ -14,7 +14,7 @@ module.exports.ComponentRoot = (
       cursor = this.props.cursor
       reactKup (k) ->
         k.div {className: 'ComponentRoot'}, ->
-#           k.h3 "Cursor:"
+#           k.h3 "ComponentRoot cursor:"
 #           k.pre JSON.stringify(that.props.cursor.get())
 #
 #           k.ul ->
@@ -29,8 +29,8 @@ module.exports.ComponentRoot = (
 #             k.li -> k.a {href: 'foo'}, 'foo'
 
           # router dispatches on `path` cursor
-          # k.build ComponentRouter,
-          #   cursor: cursor
+          k.build ComponentRouter,
+            cursor: cursor
 
           k.build ComponentLoadCurrentUser,
             cursor: cursor

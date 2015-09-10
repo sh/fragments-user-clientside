@@ -1,12 +1,9 @@
 module.exports.ComponentLanding = (
   React
   reactKup
-  Cursors
 ) ->
   React.createClass
-    mixins: [Cursors]
     render: ->
-      that = this
       reactKup (k) ->
         k.div {className: 'container ComponentLanding'}, ->
           k.h1 'Landing'

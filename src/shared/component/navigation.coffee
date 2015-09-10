@@ -21,7 +21,6 @@ module.exports.ComponentNavigationToggleButton = (
 module.exports.ComponentNavigation = (
   React
   reactKup
-  Cursors
   ComponentNavigationToggleButton
   urlRoot
   urlLogin
@@ -30,15 +29,18 @@ module.exports.ComponentNavigation = (
   forgetToken
 ) ->
   React.createClass
-    mixins: [Cursors]
     logout: (event) ->
       event.preventDefault()
+      # remove the token cookie
       forgetToken()
-      this.update
-        path: {$set: '/login'}
-        currentUser: {$set: null}
+      cursor = this.props.cursor
+      # after logout redirect to login
+      cursor.set('path', '/login')
+      cursor.set('currentUser', null)
     render: ->
       that = this
+      cursor = this.props.cursor
+      currentUser = cursor.get('currentUser')
       reactKup (k) ->
         k.nav {className: 'ComponentNavigation navbar navbar-inverse navbar-fixed-top'}, ->
           k.div {className: 'container'}, ->
@@ -50,13 +52,13 @@ module.exports.ComponentNavigation = (
               # takes url cursor
               # ComponentNavigationLink
 
-              if that.state.checkingLoginStatus
+              if cursor.get('checkingLoginStatus')
                 k.p {className: 'nav navbar-text navbar-right'}, "checking login status..."
-              else if that.state.currentUser?
+              else if currentUser?
                 k.ul {className: 'nav navbar-nav navbar-left'}, ->
                   k.li -> k.a {href: urlUsers.stringify()}, 'Users'
                 k.ul {className: 'nav navbar-nav navbar-right'}, ->
-                  k.li -> k.a {href: urlProfile.stringify()}, "Signed in as #{that.state.currentUser.name}"
+                  k.li -> k.a {href: urlProfile.stringify()}, "Signed in as #{currentUser.name}"
                   k.li -> k.a {href: '', onClick: that.logout}, 'Logout'
               else
                 k.ul {className: 'nav navbar-nav navbar-right'}, ->

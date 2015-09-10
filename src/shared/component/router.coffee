@@ -1,7 +1,6 @@
 module.exports.ComponentRouter = (
   React
   reactKup
-  Cursors
   makeRouter
   ComponentLanding
   ComponentLogin
@@ -15,50 +14,42 @@ module.exports.ComponentRouter = (
   urlUser
 ) ->
   React.createClass
-    mixins: [Cursors]
     render: ->
-      that = this
+      cursor = this.props.cursor
 
       reactKup (k) ->
         k.div {className: 'ComponentRouter'}, ->
-          # k.h3 "ComponentRouter state:"
-          # k.pre JSON.stringify(that.state)
+#           k.h3 "ComponentRouter cursor:"
+#           k.pre JSON.stringify(that.props.cursor.get())
 
           k.build ComponentNavigation,
-            cursors:
-              currentUser: that.getCursor('currentUser')
-              checkingLoginStatus: that.getCursor('checkingLoginStatus')
+            cursor: cursor
 
           # wait with routing until we know whether we're logged in
-          if that.state.checkingLoginStatus
+          if cursor.get('checkingLoginStatus')
             return
-
-          cursors =
-            page: that.getCursor('page')
-            currentUser: that.getCursor('currentUser')
-            error: that.getCursor('error')
 
           route = makeRouter()
           route urlRoot, ->
             k.build ComponentLanding,
-              cursors: cursors
+              page: cursor.select('page')
           route urlLogin, ->
             k.build ComponentLogin,
-              cursors: cursors
+              page: cursor.select('page')
+              error: cursor.select('error')
 
-          if that.state.currentUser?
-            route urlUsers, ->
-              k.build ComponentUsers,
-                cursors: cursors
-            route urlUser, (params) ->
-              k.build ComponentUser,
-                id: params.id
-                cursors: cursors
+#           if that.state.currentUser?
+#             route urlUsers, ->
+#               k.build ComponentUsers,
+#                 page: cursor.select('page')
+#                 error: cursor.select('error')
+#             route urlUser, (params) ->
+#               k.build ComponentUser,
+#                 id: params.id
+#                 page: cursor.select('page')
+#                 error: cursor.select('error')
 
-          component = route.dispatch that.state.path
+          component = route.dispatch cursor.get('path')
 
           unless component?
-            k.build ComponentNotFound,
-              cursors:
-                currentUser: that.getCursor('currentUser')
-                path: that.getCursor('path')
+            k.build ComponentNotFound
