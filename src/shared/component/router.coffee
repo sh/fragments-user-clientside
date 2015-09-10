@@ -40,11 +40,11 @@ module.exports.ComponentRouter = (
               path: cursor.select('path')
               error: cursor.select('error')
 
-#           if that.state.currentUser?
-#             route urlUsers, ->
-#               k.build ComponentUsers,
-#                 page: cursor.select('page')
-#                 error: cursor.select('error')
+          if cursor.get('currentUser')?
+            route urlUsers, ->
+              k.build ComponentUsers,
+                page: cursor.select('page')
+                error: cursor.select('error')
 #             route urlUser, (params) ->
 #               k.build ComponentUser,
 #                 id: params.id

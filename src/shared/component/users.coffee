@@ -1,27 +1,23 @@
 module.exports.ComponentUsers = (
   React
   reactKup
-  Cursors
   urlUser
   getUsers
 ) ->
   React.createClass
-    mixins: [Cursors]
     componentWillMount: ->
-      console.log 'ComponentUsers', 'componentWillMount', this.state
+      this.props.page.set({})
     componentDidMount: ->
-      console.log 'ComponentUsers', 'componentDidMount', this.state
       that = this
       getUsers()
         .then (data) ->
-          that.update
-            users: {$set: data}
+          that.props.page.set 'users', data
         .catch (error) ->
-          that.update {error: {$set: error}}
+          that.props.error.set error
     render: ->
-      console.log 'ComponentUsers', 'render', this.state
+      console.log 'ComponentUsers', 'render'
       that = this
-      users = that.state.users
+      users = that.props.page.get 'users'
       reactKup (k) ->
         k.div {className: 'container ComponentUsers'}, ->
           unless users?
@@ -38,7 +34,7 @@ module.exports.ComponentUsers = (
                   k.th "email"
                   k.th "created at"
               k.tbody ->
-                that.state.users.forEach (user) ->
+                users.forEach (user) ->
                   url = urlUser.stringify(id: user.id)
                   k.tr {
                     # TODO we might navigate to the user here
