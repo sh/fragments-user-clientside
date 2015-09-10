@@ -24,6 +24,8 @@ module.exports.initClient = (
       .fork()
       .each (x) -> console.log 'anchor click', x
 
+    # TODO extract this
+
     # anchor click -> pathCursor
     # (every time a relative anchor is clicked the path cursor is updated)
     anchorClickStream
@@ -35,6 +37,11 @@ module.exports.initClient = (
     # (every time the path cursor changes the browser url is updated)
     pathCursor.on 'update', ->
       changeBrowserUrl pathCursor.get()
+
+    # back button -> pathCursor
+    # (every time the back button is clicked the path cursor is updated)
+    window.addEventListener 'popstate', ->
+      pathCursor.set getCurrentPath()
 
     rootMountNode = document.getElementById "root"
 
