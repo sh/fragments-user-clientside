@@ -34,10 +34,13 @@ module.exports.getUsers = (
   getRememberedToken
   Promise
 ) ->
-  (data) ->
+  (query) ->
     token = getRememberedToken()
+    url = urlApiUsers()
+    if query?
+     url += '?' + Qs.stringify(query)
     Promise.resolve(reqwest(
-      url: urlApiUsers()
+      url: url
       method: 'get'
       type: 'json'
       headers:
