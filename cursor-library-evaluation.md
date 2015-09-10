@@ -4,7 +4,7 @@
 subjectively best in the sense that i enjoy using it,
 it's not unnecessarily complex,
 it's a good fit for the problem domain,
-it elegantly helps me solve all the problems i encounter
+it elegantly helps me solve all the problems regarding state i encounter
 when writing client side apps,
 it doesn't introduce new problems,
 it doesn't restrict me,
@@ -40,17 +40,6 @@ didn't find an elegant way to initialize cursor state on component mount.
 
 too limited.
 
-## https://github.com/omniscientjs/omniscient (840 :star:, 1,1k/month)
-
-> A library providing an abstraction for React components that allows for fast top-down rendering embracing immutable data for js
-> Omniscient pairs the simplicity of Quiescent with the cursors of Om, for js, using Immutable.js.
-
-that sounds really great
-
-cursors
-
-needs further evaluation
-
 ## https://github.com/Yomguithereal/baobab (1400 :star:, 5k/month)
 
 http://www.christianalfoni.com/articles/2015_02_06_Plant-a-Baobab-tree-in-your-flux-application
@@ -63,9 +52,38 @@ It aims at implementing a handful of popular React patterns so that you're free 
 
 https://github.com/jacomyal/baobab-router
 
-cursors all the way down
+cursors all the way down.
 
-needs further evaluation
+i researched this and thought about this and now have a good solution in mind
+that solves all the problems i've encountered with 
+https://github.com/caseywebdev/cursors.
+
+the solution will incorporate the baobab tree.
+
+won't use the baobab-react helpers though.
+will go without a mixin at the start.
+will write my own minimal react mixin for performance soon.
+
+tree solution will integrate nicely with hinoki !!
+
+we'll see how baobab holds up.
+as far as i can see it does everything we need and more.
+we'll use it in `sync`, `immutable` mode.
+it would be nice to have baobab backed by immutable-js.
+after using baobab after a while i can see us building our own cursor/tree/lense
+library.
+i'll refrain from it for now in the interest of time.
+
+## https://github.com/omniscientjs/omniscient (840 :star:, 1,1k/month)
+
+> A library providing an abstraction for React components that allows for fast top-down rendering embracing immutable data for js
+> Omniscient pairs the simplicity of Quiescent with the cursors of Om, for js, using Immutable.js.
+
+that sounds really great
+
+cursors
+
+readme didn't sell me. confused me. next.
 
 ## https://github.com/moreartyjs/moreartyjs (600 :star:, 2k/month)
 
