@@ -36,6 +36,8 @@ module.exports.ComponentRouter = (
           route urlLogin, ->
             k.build ComponentLogin,
               page: cursor.select('page')
+              currentUser: cursor.select('currentUser')
+              path: cursor.select('path')
               error: cursor.select('error')
 
 #           if that.state.currentUser?

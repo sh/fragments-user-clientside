@@ -13,10 +13,8 @@ module.exports.ComponentLogin = (
     updateCursorFromForm: ->
       data = this.getFormData()
       errors = validateLogin data
-      this.update
-        page:
-          data: {$set: data}
-          errors: {$set: errors}
+      this.props.page.set 'data', data
+      this.props.page.set 'errors', errors
 
     getFormData: ->
       # TODO possibly auto detect this so we don't have to modify this
@@ -41,50 +39,52 @@ module.exports.ComponentLogin = (
       if event?
         event.preventDefault()
       that = this
-      console.log 'ComponentLogin', 'handleClick', this.state.page
+      props = this.props
+      page = props.page
+      console.log 'ComponentLogin', 'handleClick', page.get()
       if that.hasErrors()
-        this.update
-          page:
-            hasClickedSubmit: {$set: true}
+        page.set('hasClickedSubmit', true)
         return
-      promise = login(that.state.page.data)
+      promise = login(page.get('data'))
       promise
         .then (data) ->
+          # remember that the user is logged in
           rememberToken data.token
-          that.update
-            # navigate
-            path: {$set: urlUsers.stringify()}
-            currentUser: {$set: data.user}
-            page:
-              alert: {$set: null}
+          # redirect to user table after login
+          props.path.set urlUsers.stringify()
+          # log the user in
+          props.currentUser.set data.user
+          # clear the alert
+          page.set 'alert', null
         .catch (error) ->
           # TODO extract this
           if error.status is 422
-            that.update {page: {alert: {$set: error.response}}}
+            page.set 'alert', error.response
           else
-            that.update {error: {$set: error}}
+            props.error.set error
+    componentWillMount: ->
+      # clear page
+      this.props.page.set({})
     componentDidMount: ->
       this.refs.identifier.getDOMNode().focus()
       this.updateCursorFromForm()
     hasSuccess: (name) ->
-      this.state.page.data?[name]? and not this.state.page.errors?[name]?
+      this.getValue(name)? and not this.getError(name)?
     hasError: (name) ->
-      this.hasClickedSubmit() and this.state.page.errors?[name]?
+      this.hasClickedSubmit() and this.getError(name)?
     hasFeedback: (name) ->
       this.hasSuccess(name) or this.hasError(name)
     hasErrors: ->
-      this.state.page.errors?
+      this.props.page.get('errors')?
     hasClickedSubmit: ->
-      this.state.page.hasClickedSubmit is true
+      this.props.page.get('hasClickedSubmit') is true
     getError: (name) ->
-      this.state.page.errors?[name]
+      this.props.page.get(['errors', name])
     getValue: (name) ->
-      this.state.page.data?[name]
-    isReadyForRender: ->
-      this.state.page.data?
+      this.props.page.get(['data', name])
     render: ->
       that = this
-      console.log 'ComponentLogin', 'render', 'this.state', this.state
+      console.log 'ComponentLogin', 'render'
       reactKup (k) ->
         k.div {className: 'container ComponentLogin'}, ->
           k.div {className: 'row'}, ->
@@ -92,10 +92,10 @@ module.exports.ComponentLogin = (
 
               k.h1 'Login'
 
-              if that.state.page.alert?
+              if that.props.page.get('alert')?
                 k.div {
                   className: 'alert alert-danger'
-                }, that.state.page.alert
+                }, that.props.page.get('alert')
 
               name = 'identifier'
               k.form {
