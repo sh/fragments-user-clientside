@@ -1,7 +1,6 @@
 module.exports.ComponentLogin = (
   React
   reactKup
-  Cursors
   ComponentFeedbackSuccess
   ComponentFeedbackError
   login
@@ -11,7 +10,6 @@ module.exports.ComponentLogin = (
   rememberToken
 ) ->
   React.createClass
-    mixins: [Cursors]
     updateCursorFromForm: ->
       data = this.getFormData()
       errors = validateLogin data

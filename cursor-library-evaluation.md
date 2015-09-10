@@ -74,6 +74,17 @@ after using baobab after a while i can see us building our own cursor/tree/lense
 library.
 i'll refrain from it for now in the interest of time.
 
+## https://github.com/facebook/immutable-js/tree/master/contrib/cursor
+
+cursor library that comes with immutable-js
+
+looks really good
+
+can't listen to updates on cursors.
+this is something we need. baobab can do it.
+
+will be massive inspiration if we decide to build a cursor library
+
 ## https://github.com/omniscientjs/omniscient (840 :star:, 1,1k/month)
 
 > A library providing an abstraction for React components that allows for fast top-down rendering embracing immutable data for js
