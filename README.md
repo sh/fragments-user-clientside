@@ -70,7 +70,10 @@ gone through several iterations. it's still in flux but its getting there.
   from parent components.
 - pass in the root cursor into "special" components like `ComponentRoot`,
   `ComponentRouter`, `ComponentLoadCurrentUser`, `ComponentNavigation`
+    - maybe even in page components
 - pass in specialized cursors into all other components
+- get a cursors through props if the components render depends to cursor and it should only update when the data the cursor is pointing at changes
+- get a cursor through dependency injection ONLY if the component ONLY updates that cursor
 
 ## state tree and cursors
 
