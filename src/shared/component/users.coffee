@@ -11,6 +11,7 @@ module.exports.ComponentUsers = (
     componentWillMount: ->
       this.props.page.set({})
       query = getQuery()
+      console.log 'ComponentUsers', 'componentWillMount', 'query', query
       query ?= {}
       query.order ?= 'created_at'
       query.asc ?= false
@@ -36,14 +37,14 @@ module.exports.ComponentUsers = (
           query.asc = query.asc isnt 'true'
         else
           query.order = name
-          query.asc = false
+          query.asc = true
         setQuery(query)
         that.loadUsers()
     render: ->
-      console.log 'ComponentUsers', 'render'
       that = this
       users = that.props.page.get 'users'
       query = getQuery()
+      console.log 'ComponentUsers', 'render', 'query', query
       reactKup (k) ->
         k.div {className: 'container ComponentUsers'}, ->
           unless users?

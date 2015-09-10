@@ -45,7 +45,7 @@ module.exports.getBrowserPath = (
   window
 ) ->
   ->
-    window.location.pathname
+    window.location.pathname + window.location.search
 
 module.exports.setBrowserPath = (
   window
@@ -93,11 +93,12 @@ module.exports.wireUpPathCursorBrowserUrlSync = (
       pathCursor.set getBrowserPath()
 
 module.exports.getQuery = (
-  pathCursor
+  getBrowserPath
   Qs
 ) ->
   ->
-    querystring = pathCursor.get().split('?')[1]
+    console.log 'getQuery', 'getBrowserPath()', getBrowserPath()
+    querystring = getBrowserPath().split('?')[1]
     unless querystring?
       return
     Qs.parse querystring
