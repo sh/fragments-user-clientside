@@ -66,14 +66,17 @@ gone through several iterations. it's still in flux but its getting there.
   - use sass to extend bootstrap styles in [sass/public.sass](sass/public.sass)
 - we use cookies only for the storage of the token in the browser.
   we ignore cookies on the server.
-- a component must take all data that its rendering depends on via cursors
-  from parent components.
 - pass in the root cursor into "special" components like `ComponentRoot`,
   `ComponentRouter`, `ComponentLoadCurrentUser`, `ComponentNavigation`
-    - maybe even in page components
+    - maybe even into page components
 - pass in specialized cursors into all other components
-- get a cursors through props if the components render depends to cursor and it should only update when the data the cursor is pointing at changes
-- get a cursor through dependency injection ONLY if the component ONLY updates that cursor
+- get a cursor through props if the components render depends on the cursor 
+  and it should only update when the data the cursor is pointing to changes
+  - a component must take all data that its rendering depends on via cursors
+    from parent components
+- get a cursor through dependency injection ONLY if the component ONLY updates that cursor and does not render it
+- prefer getting cursors through props even if accessing via DI is more convenient
+  - exceptions are the pathCursor for navigation and similar cursors
 
 ## state tree and cursors
 
