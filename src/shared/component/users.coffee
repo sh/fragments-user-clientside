@@ -3,6 +3,7 @@ module.exports.ComponentUsers = (
   reactKup
   urlUser
   getUsers
+  redirect
 ) ->
   React.createClass
     componentWillMount: ->
@@ -37,8 +38,9 @@ module.exports.ComponentUsers = (
                 users.forEach (user) ->
                   url = urlUser.stringify(id: user.id)
                   k.tr {
-                    # TODO we might navigate to the user here
-                    # onClick:
+                    onClick: -> redirect(url)
+                    style:
+                      cursor: 'pointer'
                   }, ->
                     k.td -> k.a {href: url}, user.id
                     k.td -> k.a {href: url}, user.name
