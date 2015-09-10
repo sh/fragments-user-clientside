@@ -26,6 +26,7 @@ gone through several iterations. it's still in flux but its getting there.
 - ...
 
 ![login](gif/login.gif)
+![tour](gif/tour.gif)
 
 ## relevant files and folders
 
