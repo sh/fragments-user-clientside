@@ -8,7 +8,9 @@ module.exports.rootCursor = (
     immutable: true
     # that we can immediately read what we wrote
     syncwrite: true
-  initialData = {}
+  initialData =
+    page: {}
+    checkingLoginStatus: true
   new Baobab initialData, options
 
 module.exports.pathCursor = (

@@ -24,7 +24,7 @@ module.exports.initClient = (
       .fork()
       .each (x) -> console.log 'anchor click', x
 
-    # TODO extract this
+    # TODO extract this into one function that syncs a cursor with the path
 
     # anchor click -> pathCursor
     # (every time a relative anchor is clicked the path cursor is updated)
@@ -47,9 +47,9 @@ module.exports.initClient = (
 
     render = ->
       console.log 'state change causes rerender. new state is:', rootCursor.get()
-      # rootElement = React.createElement ComponentRoot,
-      #   cursor: rootCursor
-      # React.render rootElement, rootMountNode
+      rootElement = React.createElement ComponentRoot,
+        cursor: rootCursor
+      React.render rootElement, rootMountNode
 
     # rerender on every state change
     rootCursor.on 'update', render
