@@ -78,16 +78,50 @@ module.exports.ComponentUsers = (
           k.table {className: 'table table-striped table-hover'}, ->
             k.thead ->
               k.tr ->
+                # TODO refactor this
+                name = 'id'
                 k.th ->
                   k.a {
-                    onClick: that.sortByHandler 'id'
+                    onClick: that.sortByHandler name
                     href: ''
-                  }, '#'
-                  k.span {className: 'glyphicon glyphicon-menu-down'}
-                  k.span {className: 'glyphicon glyphicon-menu-up'}
-                k.th "name"
-                k.th "email"
-                k.th "created at"
+                  }, '# ', ->
+                    if query.order is name and query.asc is 'true'
+                      k.span {className: 'glyphicon glyphicon-menu-up'}
+                    if query.order is name and query.asc is 'false'
+                      k.span {className: 'glyphicon glyphicon-menu-down'}
+
+                name = 'name'
+                k.th ->
+                  k.a {
+                    onClick: that.sortByHandler name
+                    href: ''
+                  }, "#{name} ", ->
+                    if query.order is name and query.asc is 'true'
+                      k.span {className: 'glyphicon glyphicon-menu-up'}
+                    if query.order is name and query.asc is 'false'
+                      k.span {className: 'glyphicon glyphicon-menu-down'}
+
+                name = 'email'
+                k.th ->
+                  k.a {
+                    onClick: that.sortByHandler name
+                    href: ''
+                  }, "#{name} ", ->
+                    if query.order is name and query.asc is 'true'
+                      k.span {className: 'glyphicon glyphicon-menu-up'}
+                    if query.order is name and query.asc is 'false'
+                      k.span {className: 'glyphicon glyphicon-menu-down'}
+
+                name = 'created_at'
+                k.th ->
+                  k.a {
+                    onClick: that.sortByHandler name
+                    href: ''
+                  }, "created at ", ->
+                    if query.order is name and query.asc is 'true'
+                      k.span {className: 'glyphicon glyphicon-menu-up'}
+                    if query.order is name and query.asc is 'false'
+                      k.span {className: 'glyphicon glyphicon-menu-down'}
             k.tbody ->
               users.forEach (user) ->
                 url = urlUser.stringify(id: user.id)
