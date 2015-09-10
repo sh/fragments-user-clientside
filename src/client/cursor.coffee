@@ -10,3 +10,8 @@ module.exports.rootCursor = (
     syncwrite: true
   initialData = {}
   new Baobab initialData, options
+
+module.exports.pathCursor = (
+  rootCursor
+) ->
+  rootCursor.select('path')
