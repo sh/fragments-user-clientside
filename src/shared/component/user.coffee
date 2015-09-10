@@ -1,10 +1,8 @@
 module.exports.ComponentUser = (
   React
   reactKup
-  Cursors
 ) ->
   React.createClass
-    mixins: [Cursors]
     componentDidMount: ->
       console.log 'ComponentUser', 'componentDidMount'
       # TODO
