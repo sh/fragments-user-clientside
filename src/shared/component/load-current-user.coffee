@@ -12,15 +12,13 @@ module.exports.ComponentLoadCurrentUser = (
   React.createClass
     mixins: [Cursors]
     componentDidMount: ->
-      that = this
+      cursor = this.props.cursor
       getCurrentUser()
         .then (data) ->
-          that.update
-            currentUser: {$set: data}
-            checkingLoginStatus: {$set: false}
+          cursor.set('currentUser', data)
+          cursor.set('checkingLoginStatus', false)
         .catch (error) ->
-          that.update {error: {$set: error}}
+          cursor.set('error', error)
     render: ->
       reactKup (k) ->
         k.div {className: 'ComponentLoadCurrentUser'}
-
