@@ -30,3 +30,6 @@ module.exports.classNames = (window) ->
 
 module.exports.Promise = (window) ->
   window.Promise
+
+module.exports.Baobab = (window) ->
+  window.Baobab

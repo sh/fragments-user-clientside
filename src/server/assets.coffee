@@ -13,4 +13,5 @@ module.exports.javascripts = ->
     'bower_components/is_js/is.js'
     'node_modules/waechter/lib/waechter.js'
     'bower_components/classnames/index.js'
+    'bower_components/baobab/build/baobab.min.js'
   ]

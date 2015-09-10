@@ -6,6 +6,7 @@ module.exports.initClient = (
   changeBrowserUrl
   getCookieKeys
   getRememberedToken
+  rootCursor
 ) ->
   ->
     console.log 'initClient'
@@ -13,25 +14,30 @@ module.exports.initClient = (
     console.log 'getCookieKeys()', getCookieKeys()
     console.log 'getRememberedToken()', getRememberedToken()
 
-    anchorClickStream = streamAnchorClicks document
+    console.log 'rootCursor.get()', rootCursor.get()
 
-    # TODO break this up into multiple dependencies
-
-    # logging
-
-    # anchorClickStream
-    #   .fork()
-    #   .each (x) -> console.log 'anchor click', x
-
-    # push state
-
-    anchorClickStream
-      .fork()
-      .pluck('relative')
-      .each(changeBrowserUrl)
-
-    rootMountNode = document.getElementById "root"
-    rootElement = React.createElement ComponentRoot,
-      clickStream: anchorClickStream.fork()
-
-    React.render rootElement, rootMountNode
+#     anchorClickStream = streamAnchorClicks document
+#
+#     # TODO break this up into multiple dependencies
+#
+#     # logging
+#
+#     # anchorClickStream
+#     #   .fork()
+#     #   .each (x) -> console.log 'anchor click', x
+#
+#     # push state
+#
+#     anchorClickStream
+#       .fork()
+#       .pluck('relative')
+#       .each(changeBrowserUrl)
+#
+#     rootMountNode = document.getElementById "root"
+#       clickStream: anchorClickStream.fork()
+#
+#     render = ->
+#       rootElement = React.createElement ComponentRoot
+#       React.render rootElement, rootMountNode
+#
+#
