@@ -27,16 +27,15 @@ module.exports.ComponentNavigation = (
   urlProfile
   urlUsers
   forgetToken
+  redirect
 ) ->
   React.createClass
     logout: (event) ->
       event.preventDefault()
-      # remove the token cookie
+      console.log 'logging out'
       forgetToken()
-      cursor = this.props.cursor
-      # after logout redirect to login
-      cursor.set('path', '/login')
-      cursor.set('currentUser', null)
+      redirect(urlLogin.stringify())
+      this.props.cursor.set('currentUser', null)
     render: ->
       that = this
       cursor = this.props.cursor

@@ -8,6 +8,7 @@ module.exports.ComponentLogin = (
   classNames
   urlUsers
   rememberToken
+  redirect
 ) ->
   React.createClass
     updateCursorFromForm: ->
@@ -51,7 +52,7 @@ module.exports.ComponentLogin = (
           # remember that the user is logged in
           rememberToken data.token
           # redirect to user table after login
-          props.path.set urlUsers.stringify()
+          redirect urlUsers.stringify()
           # log the user in
           props.currentUser.set data.user
           # clear the alert

@@ -6,7 +6,6 @@ module.exports.ComponentRoot = (
   React
   reactKup
   ComponentRouter
-  getCurrentPath
   ComponentLoadCurrentUser
 ) ->
   React.createClass

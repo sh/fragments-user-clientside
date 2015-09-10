@@ -1,14 +1,11 @@
-# hijacks clicks to anchor tags with relative urls
+# calls cb on clicks to anchor tags with relative urls
 # inspired by https://gist.github.com/tbranyen/1142129
-# returns a highland stream with all the clicked relative urls
-module.exports.streamAnchorClicks = (
-  highland
-  getCurrentRoot
+module.exports.onRelativeAnchorClick = (
+  getBrowserUrlProtocolHost
 ) ->
-  (el) ->
+  (el, cb) ->
     unless el?
       throw new Error 'missing argument'
-    stream = highland()
 
     el.addEventListener 'click', (event) ->
       unless event.target.tagName is 'A'
@@ -20,7 +17,7 @@ module.exports.streamAnchorClicks = (
       href = event.target.getAttribute('href')
       absoluteHref = event.target.href
 
-      root = getCurrentRoot()
+      root = getBrowserUrlProtocolHost()
 
       isRelative = absoluteHref.slice(0, root.length) is root
 
@@ -29,29 +26,84 @@ module.exports.streamAnchorClicks = (
 
       relative = absoluteHref.slice(root.length)
 
-      event.preventDefault()
-
-      stream.write
+      cb
         event: event
         absolute: absoluteHref
         relative: relative
 
-    return stream
-
-module.exports.getCurrentRoot = (
+module.exports.getBrowserUrlProtocolHost = (
   window
 ) ->
   ->
     window.location.protocol + "//" + window.location.host
 
-module.exports.getCurrentPath = (
+module.exports.getBrowserPath = (
   window
 ) ->
   ->
     window.location.pathname
 
-module.exports.changeBrowserUrl = (
+module.exports.setBrowserPath = (
   window
 ) ->
-  (url) ->
-    window.history.pushState {}, null, url
+  (path) ->
+    state = {path: path}
+    console.log 'pushstate', state
+    console.log 'window.history.length', window.history.length
+    window.history.pushState state, null, path
+
+module.exports.pathCursor = (
+  rootCursor
+) ->
+  rootCursor.select('path')
+
+module.exports.redirect = (
+  pathCursor
+  setBrowserPath
+) ->
+  (path) ->
+    setBrowserPath(path)
+    pathCursor.set(path)
+
+# TODO better name
+module.exports.wireUpPathCursorBrowserUrlSync = (
+  pathCursor
+  onRelativeAnchorClick
+  setBrowserPath
+  getBrowserPath
+  window
+) ->
+  ->
+    # anchor click -> pathCursor
+    # (every time a relative anchor is clicked the path cursor is updated)
+    onRelativeAnchorClick window, (data) ->
+      data.event.preventDefault()
+      console.log 'relative anchor click', data.relative
+      setBrowserPath data.relative
+      pathCursor.set(data.relative)
+
+    # back button -> pathCursor
+    # (every time the back button is clicked the path cursor is updated)
+    window.addEventListener 'popstate', (event) ->
+      console.log 'popstate', event
+      pathCursor.set getBrowserPath()
+
+module.exports.getQuery = (
+  pathCursor
+  Qs
+) ->
+  ->
+    querystring = pathCursor.get().split('?')[1]
+    unless querystring?
+      return
+    Qs.parse querystring
+
+module.exports.setQuery = (
+  pathCursor
+  Qs
+) ->
+  (query) ->
+    querystring = Qs.stringify query
+    pathWithoutQuery = pathCursor.get().split('?')[0]
+    newPath = pathWithoutQuery + '?' + querystring
+    pathCursor.set newPath

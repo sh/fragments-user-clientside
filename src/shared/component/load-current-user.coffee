@@ -6,11 +6,9 @@
 module.exports.ComponentLoadCurrentUser = (
   React
   reactKup
-  Cursors
   getCurrentUser
 ) ->
   React.createClass
-    mixins: [Cursors]
     componentDidMount: ->
       cursor = this.props.cursor
       getCurrentUser()

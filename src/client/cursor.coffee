@@ -12,8 +12,3 @@ module.exports.rootCursor = (
     page: {}
     checkingLoginStatus: true
   new Baobab initialData, options
-
-module.exports.pathCursor = (
-  rootCursor
-) ->
-  rootCursor.select('path')

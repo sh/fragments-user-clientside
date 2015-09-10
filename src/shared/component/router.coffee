@@ -50,8 +50,10 @@ module.exports.ComponentRouter = (
 #                 id: params.id
 #                 page: cursor.select('page')
 #                 error: cursor.select('error')
+#
+          pathWithoutQuerystring = cursor.get('path').split('?')[0]
 
-          component = route.dispatch cursor.get('path')
+          component = route.dispatch pathWithoutQuerystring
 
           unless component?
             k.build ComponentNotFound

@@ -1,14 +1,13 @@
 module.exports.initClient = (
   React
   ComponentRoot
-  streamAnchorClicks
-  window
-  changeBrowserUrl
+  document
   getCookieKeys
   getRememberedToken
   rootCursor
   pathCursor
-  getCurrentPath
+  getBrowserPath
+  wireUpPathCursorBrowserUrlSync
 ) ->
   ->
     console.log 'initClient'
@@ -16,37 +15,12 @@ module.exports.initClient = (
     console.log 'getRememberedToken()', getRememberedToken()
     console.log 'rootCursor.get()', rootCursor.get()
 
-    anchorClickStream = streamAnchorClicks document
-
-    # logging
-
-    anchorClickStream
-      .fork()
-      .each (x) -> console.log 'anchor click', x
-
-    # TODO extract this into one function that syncs a cursor with the path
-
-    # anchor click -> pathCursor
-    # (every time a relative anchor is clicked the path cursor is updated)
-    anchorClickStream
-      .fork()
-      .pluck('relative')
-      .each (url) -> pathCursor.set(url)
-
-    # pathCursor -> browser url
-    # (every time the path cursor changes the browser url is updated)
-    pathCursor.on 'update', ->
-      changeBrowserUrl pathCursor.get()
-
-    # back button -> pathCursor
-    # (every time the back button is clicked the path cursor is updated)
-    window.addEventListener 'popstate', ->
-      pathCursor.set getCurrentPath()
+    wireUpPathCursorBrowserUrlSync()
 
     rootMountNode = document.getElementById "root"
 
     render = ->
-      console.log 'state change causes rerender. new state is:', rootCursor.get()
+      console.log 'state change. rerender. new state:', rootCursor.get()
       rootElement = React.createElement ComponentRoot,
         cursor: rootCursor
       React.render rootElement, rootMountNode
@@ -55,4 +29,4 @@ module.exports.initClient = (
     rootCursor.on 'update', render
 
     # initialize path cursor and trigger initial render
-    pathCursor.set getCurrentPath()
+    pathCursor.set getBrowserPath()

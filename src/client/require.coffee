@@ -10,14 +10,8 @@ module.exports.React = (window) ->
 module.exports.reactKup = (window) ->
   window.reactKup
 
-module.exports.Cursors = (window) ->
-  window.Cursors
-
 module.exports.reqwest = (window) ->
   window.reqwest
-
-module.exports.highland = (window) ->
-  window.highland
 
 module.exports.UrlPattern = (window) ->
   window.UrlPattern
@@ -33,3 +27,9 @@ module.exports.Promise = (window) ->
 
 module.exports.Baobab = (window) ->
   window.Baobab
+
+module.exports.URI = (window) ->
+  window.URI
+
+module.exports.Qs = (window) ->
+  window.Qs
