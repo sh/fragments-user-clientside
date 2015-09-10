@@ -68,6 +68,9 @@ gone through several iterations. it's still in flux but its getting there.
   we ignore cookies on the server.
 - a component must take all data that its rendering depends on via cursors
   from parent components.
+- pass in the root cursor into "special" components like `ComponentRoot`,
+  `ComponentRouter`, `ComponentLoadCurrentUser`, `ComponentNavigation`
+- pass in specialized cursors into all other components
 
 ## state tree and cursors
 
