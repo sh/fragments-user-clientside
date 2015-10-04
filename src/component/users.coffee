@@ -3,6 +3,7 @@ module.exports.ComponentUsers = (
   reactKup
   urlUser
   getUsers
+  handleHttpError
   redirect
   getQuery
   setQuery
@@ -22,9 +23,8 @@ module.exports.ComponentUsers = (
       that = this
       getUsers(getQuery())
         .then (data) ->
-          that.props.page.set 'users', data
-        .catch (error) ->
-          that.props.error.set error
+          that.props.page.set 'records', data
+        .catch handleHttpError
     sortByHandler: (name) ->
       that = this
       (event) ->
@@ -42,19 +42,20 @@ module.exports.ComponentUsers = (
         that.loadUsers()
     render: ->
       that = this
-      users = that.props.page.get 'users'
+      records = that.props.page.get 'records'
       query = getQuery()
       console.log 'ComponentUsers', 'render', 'query', query
+
       reactKup (k) ->
         k.div {className: 'container ComponentUsers'}, ->
-          unless users?
-            k.p "loading users"
+          unless records?
+            k.p "loading users..."
             return
 
           k.div {className: 'page-header'}, ->
             k.h1 'Users'
 
-          if users.length is 0
+          if records.length is 0
             k.p "no users to show"
             return
 
@@ -83,6 +84,9 @@ module.exports.ComponentUsers = (
                 name = 'id'
                 k.th ->
                   k.a {
+                    # TODO just add the correct href
+                    # it will then be picked up by the anchor hijack
+                    # no need for the sortByHandler bullshit
                     onClick: that.sortByHandler name
                     href: ''
                   }, '# ', ->
@@ -124,7 +128,7 @@ module.exports.ComponentUsers = (
                     if query.order is name and query.asc is 'false'
                       k.span {className: 'glyphicon glyphicon-menu-down'}
             k.tbody ->
-              users.forEach (user) ->
+              records.forEach (user) ->
                 url = urlUser.stringify(id: user.id)
                 k.tr {
                   onClick: (event) ->
@@ -135,7 +139,7 @@ module.exports.ComponentUsers = (
                   style:
                     cursor: 'pointer'
                 }, ->
-                  k.td -> k.a {href: url}, user.id
+                  k.th -> k.a {href: url}, user.id
                   k.td -> k.a {href: url}, user.name
                   k.td -> k.a {href: url}, user.email
                   k.td -> k.a {href: url}, user.created_at

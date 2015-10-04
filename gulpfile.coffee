@@ -47,11 +47,6 @@ gulp.task 'dev-js', ->
     maybeEnvStringMinifiedJavascriptPath
     path
   ) ->
-    libs = gulp.src(javascripts)
-    before = gulp.src('src/client-first.coffee').pipe(gulpCoffee({bare: true}))
-    shared = gulp.src('src/shared/**').pipe(gulpCoffee({bare: true}))
-    client = gulp.src('src/client/**').pipe(gulpCoffee({bare: true}))
-    after = gulp.src('src/client-last.coffee').pipe(gulpCoffee({bare: true}))
 
 #     if isForProduction
 #       libs = libs.pipe(uglify())
@@ -65,13 +60,15 @@ gulp.task 'dev-js', ->
 #       init = init.pipe(uglify({mangle: false}))
 
     ordered = [
-      libs
-      before
-      shared
+      gulp.src(javascripts)
+      gulp.src('src/client-first.coffee').pipe(gulpCoffee({bare: true}))
+      gulp.src('src/shared/**').pipe(gulpCoffee({bare: true}))
       gulp.src('node_modules/fragments-user/src/factories/url.coffee').pipe(gulpCoffee({bare: true}))
       gulp.src('node_modules/fragments-user/src/factories/validation.coffee').pipe(gulpCoffee({bare: true}))
-      client
-      after
+      gulp.src('src/component/**').pipe(gulpCoffee({bare: true}))
+      gulp.src('src/client/**').pipe(gulpCoffee({bare: true}))
+      gulp.src('src/client-reusable/**').pipe(gulpCoffee({bare: true}))
+      after = gulp.src('src/client-last.coffee').pipe(gulpCoffee({bare: true}))
     ]
 
     streamqueue({objectMode: true}, ordered...)

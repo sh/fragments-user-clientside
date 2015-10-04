@@ -7,6 +7,8 @@ module.exports.initClient = (
   rootCursor
   pathCursor
   getBrowserPath
+  getCurrentUser
+  handleHttpError
   wireUpPathCursorBrowserUrlSync
 ) ->
   ->
@@ -16,6 +18,13 @@ module.exports.initClient = (
     console.log 'rootCursor.get()', rootCursor.get()
 
     wireUpPathCursorBrowserUrlSync()
+
+    rootCursor.set('checkingLoginStatus', true)
+    getCurrentUser()
+      .then (data) ->
+        rootCursor.set('currentUser', data)
+        rootCursor.set('checkingLoginStatus', false)
+      .catch handleHttpError
 
     rootMountNode = document.getElementById "root"
 

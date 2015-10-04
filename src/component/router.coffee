@@ -38,19 +38,17 @@ module.exports.ComponentRouter = (
               page: cursor.select('page')
               currentUser: cursor.select('currentUser')
               path: cursor.select('path')
-              error: cursor.select('error')
 
           if cursor.get('currentUser')?
             route urlUsers, ->
               k.build ComponentUsers,
+                path: cursor.select('path')
                 page: cursor.select('page')
-                error: cursor.select('error')
-#             route urlUser, (params) ->
-#               k.build ComponentUser,
-#                 id: params.id
-#                 page: cursor.select('page')
-#                 error: cursor.select('error')
-#
+            route urlUser, (params) ->
+              k.build ComponentUser,
+                id: params.id
+                page: cursor.select('page')
+
           pathWithoutQuerystring = cursor.get('path').split('?')[0]
 
           component = route.dispatch pathWithoutQuerystring

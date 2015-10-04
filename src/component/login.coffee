@@ -3,11 +3,12 @@ module.exports.ComponentLogin = (
   reactKup
   ComponentFeedbackSuccess
   ComponentFeedbackError
-  login
+  postLogin
   validateLogin
   classNames
   urlUsers
   rememberToken
+  handleHttpError
   redirect
 ) ->
   React.createClass
@@ -46,8 +47,7 @@ module.exports.ComponentLogin = (
       if that.hasErrors()
         page.set('hasClickedSubmit', true)
         return
-      promise = login(page.get('data'))
-      promise
+      postLogin(page.get('data'))
         .then (data) ->
           # remember that the user is logged in
           rememberToken data.token
@@ -58,11 +58,10 @@ module.exports.ComponentLogin = (
           # clear the alert
           page.set 'alert', null
         .catch (error) ->
-          # TODO extract this
           if error.status is 422
             page.set 'alert', error.response
           else
-            props.error.set error
+            handleHttpError error
     componentWillMount: ->
       # clear page
       this.props.page.set({})

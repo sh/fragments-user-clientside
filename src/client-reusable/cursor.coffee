@@ -10,5 +10,6 @@ module.exports.rootCursor = (
     syncwrite: true
   initialData =
     page: {}
+    # TODO do this in init
     checkingLoginStatus: true
   new Baobab initialData, options

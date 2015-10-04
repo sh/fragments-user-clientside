@@ -109,7 +109,7 @@ module.exports.setQuery = (
   pathCursor
 ) ->
   (query) ->
-    querystring = Qs.stringify query
     pathWithoutQuery = pathCursor.get().split('?')[0]
+    querystring = Qs.stringify query
     newPath = pathWithoutQuery + '?' + querystring
     redirect newPath

@@ -1,48 +1,37 @@
-module.exports.login = (
-  reqwest
+module.exports.postLogin = (
+  httpPost
   urlApiLogin
 ) ->
   (data) ->
-    Promise.resolve(reqwest(
-      url: urlApiLogin()
-      method: 'post'
-      type: 'json'
-      data: data
-    ))
+    httpPost urlApiLogin(), data
 
 module.exports.getCurrentUser = (
-  reqwest
+  httpGet
   urlApiCurrentUser
   getRememberedToken
-  Promise
 ) ->
   (data) ->
     token = getRememberedToken()
+    # this would fail without a token
+    # by returning null we signal that there is no user currently logged in
     unless token?
       return Promise.resolve null
-    Promise.resolve(reqwest(
-      url: urlApiCurrentUser()
-      method: 'get'
-      type: 'json'
-      headers:
-        authorization: "Bearer #{token}"
-    ))
+    httpGet urlApiCurrentUser()
 
 module.exports.getUsers = (
-  reqwest
+  httpGet
   urlApiUsers
-  getRememberedToken
-  Promise
 ) ->
   (query) ->
-    token = getRememberedToken()
     url = urlApiUsers()
     if query?
      url += '?' + Qs.stringify(query)
-    Promise.resolve(reqwest(
-      url: url
-      method: 'get'
-      type: 'json'
-      headers:
-        authorization: "Bearer #{token}"
-    ))
+    httpGet url
+
+module.exports.getUser = (
+  httpGet
+  urlApiUsers
+) ->
+  (id) ->
+    url = urlApiUsers(id)
+    httpGet url
