@@ -78,6 +78,12 @@ gone through several iterations. it's still in flux but its getting there.
 - get a cursor through dependency injection ONLY if the component ONLY updates that cursor and does not render it
 - prefer getting cursors through props even if accessing via DI is more convenient
   - exceptions are the pathCursor for navigation and similar cursors
+- if a click should just change the display the prefer to just
+  make it an `a` tag over changing the state in a handler.
+  a click then simply changes the `path` (and possibly its query params).
+  read the display state from the path and the query params.
+  this way the `path` directly maps to the display state,
+  the display state is linkable and survices a refresh.
 
 ## state tree and cursors
 
