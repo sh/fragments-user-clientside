@@ -127,12 +127,18 @@ cd {this-repository}
 npm install
 ```
 
+```
+bower install
+```
+
 configure by changing [.env](.env) to suit your needs.
 
 ```
 source .env
 ```
 (or use [autoenv](https://github.com/kennethreitz/autoenv) which is recommended)
+
+make sure postgres is running.
 
 create database thats in env var `DATABASE_URL`:
 ```
