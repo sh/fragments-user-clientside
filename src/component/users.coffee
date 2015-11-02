@@ -10,6 +10,7 @@ module.exports.ComponentUsers = (
   updateQuery
   offsetAndLimitToPageAndPerPage
   updatePageAndPerPage
+  ComponentPagination
 ) ->
   React.createClass
     componentWillMount: ->
@@ -18,8 +19,6 @@ module.exports.ComponentUsers = (
         console.log 'ComponentUsers', 'componentWillMount', 'query', query
         query.order ?= 'created_at'
         query.asc ?= false
-        query.limit ?= 50
-        query.offset ?= 0
         return query
     componentDidMount: ->
       this.loadUsers()
@@ -43,28 +42,6 @@ module.exports.ComponentUsers = (
             query.asc = true
           return query
         that.loadUsers()
-    onPageChange: (event) ->
-      updatePageAndPerPage (data) ->
-        # TODO must be an integer
-        data.page = event.target.value
-        return data
-      this.loadUsers()
-    onPerPageChange: (event) ->
-      updatePageAndPerPage (data) ->
-        # TODO must be an integer
-        data.perPage = event.target.value
-        return data
-      this.loadUsers()
-    gotoPreviousPage: ->
-      updatePageAndPerPage (data) ->
-        data.page -= 1
-        return data
-      this.loadUsers()
-    gotoNextPage: ->
-      updatePageAndPerPage (data) ->
-        data.page += 1
-        return data
-      this.loadUsers()
     render: ->
       that = this
       records = that.props.page.get 'records'
@@ -85,43 +62,8 @@ module.exports.ComponentUsers = (
             k.p "no users to show"
             return
 
-          k.div {className: 'row'}, ->
-            k.div {className: 'col-xs-4 col-xs-offset-6'}, ->
-              k.div {className: 'form-inline'}, ->
-                k.div {className: 'form-group'}, ->
-                  k.label 'page '
-                  k.input
-                    type: 'text'
-                    className: 'form-control'
-                    style:
-                      # width: '50px'
-                      textAlign: 'center'
-                    onChange: that.onPageChange
-                    value: page
-                k.span ' of 100 '
-                k.div {className: 'btn-group'}, ->
-                  k.button {
-                    className: 'btn btn-default'
-                    type: 'button'
-                    onClick: that.gotoPreviousPage
-                  }, ->
-                    k.span {className: 'glyphicon glyphicon-menu-left'}
-                  k.button {
-                    className: 'btn btn-default'
-                    type: 'button'
-                    onClick: that.gotoNextPage
-                  }, ->
-                    k.span {className: 'glyphicon glyphicon-menu-right'}
-                k.div {className: 'form-group'}, ->
-                  k.label ' per page '
-                  k.input
-                    type: 'text'
-                    className: 'form-control'
-                    style:
-                      # width: '50px'
-                      textAlign: 'center'
-                    onChange: that.onPerPageChange
-                    value: perPage
+          k.build ComponentPagination,
+            reload: -> that.loadUsers()
 
           k.table {className: 'table table-striped table-hover'}, ->
             k.thead ->
