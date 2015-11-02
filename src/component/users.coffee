@@ -104,3 +104,12 @@ module.exports.ComponentUsers = (
                   k.td -> k.a {href: url}, user.name
                   k.td -> k.a {href: url}, user.email
                   k.td -> k.a {href: url}, user.created_at
+                  k.td ->
+                    k.a {
+                      className: 'btn btn-default'
+                      onClick: (event) ->
+                        event.preventDefault()
+                        event.stopPropagation()
+                        console.log "delete user #{user.id}"
+                    }, ->
+                      k.span {className: 'glyphicon glyphicon-trash'}
