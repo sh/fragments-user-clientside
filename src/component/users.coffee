@@ -58,10 +58,6 @@ module.exports.ComponentUsers = (
           k.div {className: 'page-header'}, ->
             k.h1 'Users'
 
-          if records.length is 0
-            k.p "no users to show"
-            return
-
           k.build ComponentPagination,
             reload: -> that.loadUsers()
 
@@ -79,6 +75,10 @@ module.exports.ComponentUsers = (
                     query.where.email.contains = event.target.value
                     return query
                   that.loadUsers()
+
+          if records.length is 0
+            k.p "no users to show"
+            return
 
           k.table {className: 'table table-striped table-hover'}, ->
             k.thead ->
