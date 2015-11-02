@@ -11,6 +11,7 @@ module.exports.ComponentUsers = (
   offsetAndLimitToPageAndPerPage
   updatePageAndPerPage
   ComponentPagination
+  ComponentThSort
 ) ->
   React.createClass
     componentWillMount: ->
@@ -28,26 +29,14 @@ module.exports.ComponentUsers = (
         .then (data) ->
           that.props.page.set 'records', data
         .catch handleHttpError
-    sortByHandler: (name) ->
-      that = this
-      (event) ->
-        event.preventDefault()
-        console.log 'sortBy', name
-        updateQuery (query) ->
-          if query.order is name
-            # swap order
-            query.asc = query.asc isnt 'true'
-          else
-            query.order = name
-            query.asc = true
-          return query
-        that.loadUsers()
     render: ->
       that = this
       records = that.props.page.get 'records'
       query = getQuery()
       {page, perPage} = offsetAndLimitToPageAndPerPage(query)
       console.log 'ComponentUsers', 'render', 'query', query
+
+      reload = -> that.loadUsers()
 
       reactKup (k) ->
         k.div {className: 'container ComponentUsers'}, ->
@@ -59,7 +48,7 @@ module.exports.ComponentUsers = (
             k.h1 'Users'
 
           k.build ComponentPagination,
-            reload: -> that.loadUsers()
+            reload: reload
 
           k.div {className: 'form-inline'}, ->
             k.div {className: 'form-group'}, ->
@@ -83,53 +72,22 @@ module.exports.ComponentUsers = (
           k.table {className: 'table table-striped table-hover'}, ->
             k.thead ->
               k.tr ->
-                # TODO refactor this
-                name = 'id'
-                k.th ->
-                  k.a {
-                    # TODO just add the correct href
-                    # it will then be picked up by the anchor hijack
-                    # no need for the sortByHandler bullshit
-                    onClick: that.sortByHandler name
-                    href: ''
-                  }, '# ', ->
-                    if query.order is name and query.asc is 'true'
-                      k.span {className: 'glyphicon glyphicon-menu-up'}
-                    if query.order is name and query.asc is 'false'
-                      k.span {className: 'glyphicon glyphicon-menu-down'}
+                k.build ComponentThSort,
+                  column: 'id'
+                  text: '#'
+                  reload: reload
+                k.build ComponentThSort,
+                  column: 'name'
+                  reload: reload
+                k.build ComponentThSort,
+                  column: 'email'
+                  reload: reload
+                k.build ComponentThSort,
+                  column: 'created_at'
+                  reload: reload
+                # action column
+                k.th()
 
-                name = 'name'
-                k.th ->
-                  k.a {
-                    onClick: that.sortByHandler name
-                    href: ''
-                  }, "#{name} ", ->
-                    if query.order is name and query.asc is 'true'
-                      k.span {className: 'glyphicon glyphicon-menu-up'}
-                    if query.order is name and query.asc is 'false'
-                      k.span {className: 'glyphicon glyphicon-menu-down'}
-
-                name = 'email'
-                k.th ->
-                  k.a {
-                    onClick: that.sortByHandler name
-                    href: ''
-                  }, "#{name} ", ->
-                    if query.order is name and query.asc is 'true'
-                      k.span {className: 'glyphicon glyphicon-menu-up'}
-                    if query.order is name and query.asc is 'false'
-                      k.span {className: 'glyphicon glyphicon-menu-down'}
-
-                name = 'created_at'
-                k.th ->
-                  k.a {
-                    onClick: that.sortByHandler name
-                    href: ''
-                  }, "created at ", ->
-                    if query.order is name and query.asc is 'true'
-                      k.span {className: 'glyphicon glyphicon-menu-up'}
-                    if query.order is name and query.asc is 'false'
-                      k.span {className: 'glyphicon glyphicon-menu-down'}
             k.tbody ->
               records.forEach (user) ->
                 url = urlUser.stringify(id: user.id)
