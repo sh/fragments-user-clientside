@@ -180,4 +180,14 @@ add some fake users to play around with:
 
 visit `localhost:{the-port-you-put-into-.env}`
 
+## query documentation
+
+view function
+
+one-way data flow
+
+the query
+
+mapping from page and perPage to offset and limit
+
 ## [license: MIT](LICENSE)
