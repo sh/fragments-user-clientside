@@ -65,6 +65,21 @@ module.exports.ComponentUsers = (
           k.build ComponentPagination,
             reload: -> that.loadUsers()
 
+          k.div {className: 'form-inline'}, ->
+            k.div {className: 'form-group'}, ->
+              k.label 'email contains'
+              k.input
+                type: 'text'
+                className: 'form-control'
+                value: query.where?.email?.contains
+                onChange: (event) ->
+                  updateQuery (query) ->
+                    query.where ?= {}
+                    query.where.email ?= {}
+                    query.where.email.contains = event.target.value
+                    return query
+                  that.loadUsers()
+
           k.table {className: 'table table-striped table-hover'}, ->
             k.thead ->
               k.tr ->
