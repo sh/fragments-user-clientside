@@ -8,18 +8,35 @@ module.exports.onRelativeAnchorClick = (
       throw new Error 'missing argument'
 
     el.addEventListener 'click', (event) ->
-      unless event.target.tagName is 'A'
-        return
+      target = event.target
+
+      # console.log 'click',
+      #   tagName: target.tagName
+      #   bypass: target.dataset.bypass?
+      #   href: target.getAttribute('href')
+      #   absoluteHref: target.href
+      #   root: getBrowserUrlProtocolHost()
+      #   bubbles: event.bubbles
+      #   isRelative: event.target.href.slice(0, getBrowserUrlProtocolHost().length) is root
+
+      # find the containing A tag
+      while target? and target.tagName isnt 'A'
+        target = target.parentNode
+        unless target?
+          return
+
+      # now we have an A tag
+
       # does the element have attribute `data-bypass` ?
-      if event.target.dataset.bypass?
+      if target.dataset.bypass?
         return
 
       # don't break the users ability to open links in a new tab !
       if event.ctrlKey or event.metaKey
         return
 
-      href = event.target.getAttribute('href')
-      absoluteHref = event.target.href
+      href = target.getAttribute('href')
+      absoluteHref = target.href
 
       root = getBrowserUrlProtocolHost()
 
@@ -29,6 +46,10 @@ module.exports.onRelativeAnchorClick = (
         return
 
       relative = absoluteHref.slice(root.length)
+
+      # TODO
+      # this is triggered twice per click. why ?
+      console.log 'relative anchor click', relative
 
       cb
         event: event
@@ -82,6 +103,7 @@ module.exports.wireUpPathCursorBrowserUrlSync = (
     # (every time a relative anchor is clicked the path cursor is updated)
     onRelativeAnchorClick window, (data) ->
       data.event.preventDefault()
+      data.event.stopPropagation()
       console.log 'relative anchor click', data.relative
       setBrowserPath data.relative
       pathCursor.set(data.relative)
