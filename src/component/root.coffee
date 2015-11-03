@@ -15,3 +15,11 @@ module.exports.ComponentRoot = (
           # router dispatches on `path` cursor
           k.build ComponentRouter,
             cursor: cursor
+          # modal is below the router component for the following reason:
+          # if it were above then the mounted router component
+          # would change position, get a new react id and get unmounted
+          # and mounted again.
+          # we don't want that !
+          modal = cursor.get('modal')
+          if modal?
+            k.build modal.component, modal.data

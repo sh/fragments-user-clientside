@@ -14,6 +14,8 @@ module.exports.ComponentUsers = (
   canUpdateUsers
   ComponentPagination
   ComponentThSort
+  showModal
+  ComponentModal
 ) ->
   React.createClass
     componentWillMount: ->
@@ -123,6 +125,7 @@ module.exports.ComponentUsers = (
                           onClick: (event) ->
                             event.preventDefault()
                             event.stopPropagation()
+                            showModal ComponentModal
                             console.log "delete user #{user.id}"
                         }, ->
                           k.span {className: 'glyphicon glyphicon-trash'}
