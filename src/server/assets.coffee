@@ -7,6 +7,7 @@ module.exports.javascripts = ->
     'bower_components/react/react-with-addons.js'
     'bower_components/react-kup/lib/react-kup.js'
     'bower_components/url-pattern/lib/url-pattern.js'
+    'node_modules/pcom/lib/pcom.js'
     'bower_components/reqwest/reqwest.js'
     'bower_components/is_js/is.js'
     'node_modules/waechter/lib/waechter.js'

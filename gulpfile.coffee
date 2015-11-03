@@ -65,6 +65,8 @@ gulp.task 'dev-js', ->
       gulp.src('src/shared/**').pipe(gulpCoffee({bare: true}))
       gulp.src('node_modules/fragments-user/src/factories/url.coffee').pipe(gulpCoffee({bare: true}))
       gulp.src('node_modules/fragments-user/src/factories/validation.coffee').pipe(gulpCoffee({bare: true}))
+      gulp.src('node_modules/fragments-user/src/factories/portable-access-control.coffee').pipe(gulpCoffee({bare: true}))
+      gulp.src('node_modules/fragments-user/src/factories/right-parser.coffee').pipe(gulpCoffee({bare: true}))
       gulp.src('src/component/**').pipe(gulpCoffee({bare: true}))
       gulp.src('src/client/**').pipe(gulpCoffee({bare: true}))
       gulp.src('src/client-reusable/**').pipe(gulpCoffee({bare: true}))

@@ -167,7 +167,7 @@ insert a user so you can actually login and use the clientside app:
 ./app users:insert max max@example.com opensesame
 ```
 
-give the user some rights:
+give the user the right to read users:
 ```
 ./app rights:insert 1 canGetUsers
 ```
@@ -180,6 +180,13 @@ add some fake users to play around with:
 
 visit `localhost:{the-port-you-put-into-.env}`
 
+give the user the right to delete users:
+```
+./app rights:insert 1 canDeleteUsers
+```
+
+you should now see delete buttons in the table view
+
 ## query documentation
 
 view function
@@ -189,5 +196,9 @@ one-way data flow
 the query
 
 mapping from page and perPage to offset and limit
+
+components whose render depends on a cursor must take the cursor through props.
+otherwise they won't get rerendered on changes.
+other things can take it through dependencies.
 
 ## [license: MIT](LICENSE)

@@ -33,3 +33,6 @@ module.exports.URI = (window) ->
 
 module.exports.Qs = (window) ->
   window.Qs
+
+module.exports.pcom = (window) ->
+  window.parserCombinators

@@ -41,7 +41,8 @@
     "react-kup": "0.5.1",
     "streamqueue": "1.1.1",
     "umgebung": "0.1.0",
-    "waechter": "1.0.0-alpha.6"
+    "waechter": "1.0.0-alpha.6",
+    "pcom": "1.0.0-alpha.1"
   },
   "devDependencies": {},
   "scripts": {}

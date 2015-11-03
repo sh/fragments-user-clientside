@@ -10,6 +10,8 @@ module.exports.ComponentUsers = (
   updateQuery
   offsetAndLimitToPageAndPerPage
   updatePageAndPerPage
+  canDeleteUsers
+  canUpdateUsers
   ComponentPagination
   ComponentThSort
 ) ->
@@ -106,19 +108,21 @@ module.exports.ComponentUsers = (
                   k.td -> k.a {href: url}, user.created_at
                   k.td ->
                     k.div {className: 'btn-group'}, ->
-                      k.a {
-                        className: 'btn btn-default'
-                        onClick: (event) ->
-                          event.preventDefault()
-                          event.stopPropagation()
-                          console.log "update user #{user.id}"
-                      }, ->
-                        k.span {className: 'glyphicon glyphicon-pencil'}
-                      k.a {
-                        className: 'btn btn-default'
-                        onClick: (event) ->
-                          event.preventDefault()
-                          event.stopPropagation()
-                          console.log "delete user #{user.id}"
-                      }, ->
-                        k.span {className: 'glyphicon glyphicon-trash'}
+                      if canUpdateUsers()
+                        k.a {
+                          className: 'btn btn-default'
+                          onClick: (event) ->
+                            event.preventDefault()
+                            event.stopPropagation()
+                            console.log "update user #{user.id}"
+                        }, ->
+                          k.span {className: 'glyphicon glyphicon-pencil'}
+                      if canDeleteUsers()
+                        k.a {
+                          className: 'btn btn-default'
+                          onClick: (event) ->
+                            event.preventDefault()
+                            event.stopPropagation()
+                            console.log "delete user #{user.id}"
+                        }, ->
+                          k.span {className: 'glyphicon glyphicon-trash'}
