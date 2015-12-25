@@ -6,9 +6,9 @@ app = require('./app')
 # fonts
 
 gulp.task 'copy-fonts', ->
-  gulp.src('bower_components/font-awesome/fonts/*')
+  gulp.src('node_modules/font-awesome/fonts/*')
     .pipe(gulp.dest('static/fonts'))
-  gulp.src('bower_components/bootstrap-sass/assets/fonts/bootstrap/*')
+  gulp.src('node_modules/bootstrap-sass/assets/fonts/bootstrap/*')
     .pipe(gulp.dest('static/fonts/bootstrap'))
 
 ################################################################################
@@ -21,8 +21,8 @@ gulp.task 'dev-css', ->
     gulpSass
   ) ->
     includePaths = [
-      'bower_components/bootstrap-sass/assets/stylesheets'
-      'bower_components/font-awesome/scss'
+      'node_modules/bootstrap-sass/assets/stylesheets'
+      'node_modules/font-awesome/scss'
     ]
     streamqueue({objectMode: true},
       # custom sass
