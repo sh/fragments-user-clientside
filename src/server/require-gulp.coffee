@@ -13,5 +13,5 @@ module.exports.gulpWatch = ->
 module.exports.streamqueue = ->
   require('streamqueue')
 
-module.exports.gulpRubySass = ->
-  require('gulp-ruby-sass')
+module.exports.gulpSass = ->
+  require('gulp-sass')

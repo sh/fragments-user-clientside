@@ -18,15 +18,16 @@ gulp.task 'dev-css', ->
   app (
     streamqueue
     gulpConcat
-    gulpRubySass
+    gulpSass
   ) ->
-    loadPaths = [
+    includePaths = [
       'bower_components/bootstrap-sass/assets/stylesheets'
       'bower_components/font-awesome/scss'
     ]
     streamqueue({objectMode: true},
       # custom sass
-      gulpRubySass('sass/public.sass', {loadPath: loadPaths})
+      gulp.src('sass/public.sass')
+      .pipe(gulpSass({includePaths: includePaths, indentedSyntax: true}).on('error', gulpSass.logError))
       # gulp.src('bower_components/nprogress/nprogress.css')
     )
       .pipe(gulpConcat('public.css'))
