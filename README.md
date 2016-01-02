@@ -31,7 +31,7 @@ gone through several iterations. it's still in flux but its getting there.
 ## relevant files and folders
 
 - [gulpfile.coffee](gulpfile.coffee) - builds `static/app.js`
-  from various .js files contained in bower-components specified in [src/server/assets.coffee](src/server/assets.coffee),
+  from various .js files contained in node_modules specified in [src/server/assets.coffee](src/server/assets.coffee),
   from [src/client-first.coffee](src/client-first.coffee),
   from [src/shared](src/shared),
   from [src/client](src/client),
@@ -47,8 +47,6 @@ gone through several iterations. it's still in flux but its getting there.
 - [src/server](src/server) - server only hinoki factories
   - [src/server/server.coffee](src/server/server.coffee) - **SERVERSIDE ENTRY POINT**
 - [app](app) - executable command line runner for [fragments](https://github.com/snd/fragments) app. sources [src/server](src/server) and [src/shared](src/shared)
-- [bower.json](bower.json) - bower dependencies. only files in
-  [src/server/assets.coffee](src/server/assets.coffee) are picked.
 - [sass](sass) - sass that is compiled into `static/public.css`
 - [sass/public.sass](sass/public.sass) - **SASS ENTRY POINT**
 
@@ -71,7 +69,7 @@ gone through several iterations. it's still in flux but its getting there.
   `ComponentRouter`, `ComponentLoadCurrentUser`, `ComponentNavigation`
     - maybe even into page components
 - pass in specialized cursors into all other components
-- get a cursor through props if the components render depends on the cursor 
+- get a cursor through props if the components render depends on the cursor
   and it should only update when the data the cursor is pointing to changes
   - a component must take all data that its rendering depends on via cursors
     from parent components
@@ -114,21 +112,11 @@ gone through several iterations. it's still in flux but its getting there.
 ## instructions on getting it to run
 
 ```
-npm install -g gulp-cli
-npm install -g bower
-gem install sass
-```
-
-```
 cd {this-repository}
 ```
 
 ```
 npm install
-```
-
-```
-bower install
 ```
 
 configure by changing [.env](.env) to suit your needs.
