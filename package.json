@@ -57,6 +57,8 @@
     "url-pattern": "^0.10.2",
     "waechter": "1.0.0-alpha.6"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "gulp-nodemon": "^2.0.6"
+  },
   "scripts": {}
 }

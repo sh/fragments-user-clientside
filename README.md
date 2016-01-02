@@ -138,7 +138,7 @@ migrate:
 ./app pg:migrate
 ```
 
-compile development javascript:
+compile development assets:
 ```
 gulp copy-fonts
 gulp dev-js
@@ -148,6 +148,11 @@ gulp dev-css
 start the server:
 ```
 ./app serve
+```
+
+...or start the development server (command includes gulp steps above):
+```
+gulp dev
 ```
 
 insert a user so you can actually login and use the clientside app:
